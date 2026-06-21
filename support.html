@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Support — NoRestNest</title>
+<meta name="description" content="Get help with NoRestNest. Contact, FAQ, and account deletion." />
+<meta name="theme-color" content="#0E0E0F" />
+<link rel="icon"      type="image/png" href="/assets/img/icon.png" />
+<link rel="apple-touch-icon"          href="/assets/img/icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+<link rel="stylesheet" href="/assets/css/style.css" />
+<style>
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 22px;
+    margin-bottom: 12px;
+  }
+  details[open] { border-color: rgba(77,163,255,0.4); }
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    list-style: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+"; color: var(--text-muted); font-size: 22px; line-height: 1;
+    transition: transform .2s ease;
+  }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p, details ol, details ul { color: var(--text-muted); margin-top: 10px; }
+  details ol, details ul { padding-left: 22px; }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="container">
+    <a class="brand" href="/">
+      <img src="/assets/img/icon.png" alt="" />
+      <span>NoRestNest</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/#features">Features</a>
+      <a href="/#screenshots">Screens</a>
+      <a href="/#pricing">Pro</a>
+      <a href="/support.html">Support</a>
+      <a class="nav-cta" href="/#download">Download</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="legal">
+  <div class="container">
+
+    <span class="eyebrow">Support</span>
+    <h1>We're here when you need us.</h1>
+    <p class="lead">All replies come from a real person — the developer. Most messages get a same-day reply on weekdays.</p>
+
+    <!-- Contact -->
+    <h2 id="contact">Contact</h2>
+    <div class="contact-card" style="margin: 12px 0 30px;">
+      <div class="row">
+        <div>
+          <strong>Support &amp; bugs</strong>
+          <p><a href="mailto:support@norestnest.com?subject=BUG%3A%20">support@norestnest.com</a></p>
+          <p style="font-size:13px; color: var(--text-dim); margin-top:6px;">Start your subject with <code>BUG:</code> for fast triage.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <strong>Privacy &amp; data requests (GDPR)</strong>
+          <p><a href="mailto:privacy@norestnest.com">privacy@norestnest.com</a></p>
+          <p style="font-size:13px; color: var(--text-dim); margin-top:6px;">Access, export, deletion, restriction or objection — answered within one month per Art. 12(3) GDPR.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <strong>Business / press</strong>
+          <p><a href="mailto:hello@norestnest.com">hello@norestnest.com</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <h2 id="faq">Frequently asked</h2>
+
+    <details>
+      <summary>Does NoRestNest work offline?</summary>
+      <p>Yes. Every workout, set, food entry and measurement is written to your device first. Cloud sync, the AI program builder, food-photo recognition and food search need a connection — everything else runs offline.</p>
+    </details>
+
+    <details>
+      <summary>What's the difference between Free and Pro?</summary>
+      <p>Free covers everything you need to log a workout: per-set tracking, progression suggestions, body explorer, nutrition log, progress charts. Pro adds:</p>
+      <ul>
+        <li>Smart program builder (AI program generation)</li>
+        <li>Cloud sync across multiple devices</li>
+        <li>Unlimited program history and exports</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>How do I cancel my subscription?</summary>
+      <p><strong>Android (Google Play):</strong> Open Google Play → Profile icon → Payments &amp; Subscriptions → Subscriptions → NoRestNest → Cancel.</p>
+      <p><strong>iOS (App Store):</strong> Open Settings → tap your name → Subscriptions → NoRestNest → Cancel.</p>
+      <p>You keep Pro until the end of the current billing period. Full details on the <a href="/refund.html">Refund Policy</a> page.</p>
+    </details>
+
+    <details>
+      <summary>Can I get a refund?</summary>
+      <p>Refunds go through Google Play or the Apple App Store directly — NoRestNest doesn't process them. There's typically a 48-hour window after purchase. See the <a href="/refund.html">Refund Policy</a> for the exact steps.</p>
+    </details>
+
+    <details id="delete">
+      <summary>How do I delete my account and data?</summary>
+      <ol>
+        <li>Open the app and go to <strong>Profile → Account actions → Delete Account</strong>.</li>
+        <li>Your account is marked for deletion. Other devices are signed out automatically.</li>
+        <li>On Android, your Google Play subscription is auto-cancelled. On iOS, the app opens Settings so you can cancel the subscription manually.</li>
+        <li>A 30-day grace period starts. You can cancel deletion from the recovery page during this window.</li>
+        <li>Or choose <strong>Delete now</strong> to skip the grace period and remove everything immediately.</li>
+        <li>After deletion: every cloud document, every cloud file, your RevenueCat customer record and any referral codes that listed you as inviter are removed.</li>
+      </ol>
+      <p>Can't reach the in-app flow? Email <a href="mailto:privacy@norestnest.com">privacy@norestnest.com</a> from the address on your account and we'll process it manually.</p>
+    </details>
+
+    <details>
+      <summary>I didn't get my verification email. What now?</summary>
+      <ol>
+        <li>Check spam. Verification mail comes from <code>noreply@norestnest.com</code>.</li>
+        <li>Wait 1–2 minutes — mail through our EU server is usually instant but can occasionally queue.</li>
+        <li>In the app, tap <strong>Resend</strong> to fire a fresh link. Links expire after 3 days.</li>
+        <li>Still stuck? Email <a href="mailto:support@norestnest.com">support@norestnest.com</a> with the address you registered with.</li>
+      </ol>
+    </details>
+
+    <details>
+      <summary>I tapped the verification link on my phone but the app didn't open.</summary>
+      <p>Make sure the NoRestNest app is installed on the device where you opened the link. If the app is installed and the link still opens this website instead, fully close NoRestNest (swipe away) and tap the link again — Android sometimes caches the default handler. As a last resort, re-tap <strong>Resend</strong> in the app to get a fresh link.</p>
+    </details>
+
+    <details>
+      <summary>How does the AI program builder use my data?</summary>
+      <p>When you generate a program, only the inputs you provide for that request (goal, equipment, days per week, free-text answers) are sent to Anthropic's Claude API. Your full account, photos, sync content and history are never sent. Anthropic's commercial terms exclude API inputs and outputs from model training by default.</p>
+    </details>
+
+    <details>
+      <summary>Where does my synced data live?</summary>
+      <p>Synced workout, nutrition and progress data is stored on Google Firebase servers in the United States (Iowa region) under EU Standard Contractual Clauses and the EU–US Data Privacy Framework. Verification and password-reset email pass through our own EU mail server. Full details in the <a href="/privacy.html">Privacy Policy</a>.</p>
+    </details>
+
+    <details>
+      <summary>Can I export my data?</summary>
+      <p>Yes. Email <a href="mailto:privacy@norestnest.com">privacy@norestnest.com</a> from the address on your account and we'll send a machine-readable export of your workouts, nutrition logs, body measurements and progress photos within one month (GDPR Art. 20).</p>
+    </details>
+
+    <details>
+      <summary>What permissions does the app need?</summary>
+      <ul>
+        <li><strong>Camera</strong> — barcode scanning, label scanning, meal/progress photos. Optional.</li>
+        <li><strong>Photo library</strong> — pick existing meal/progress photos. Optional.</li>
+        <li><strong>Internet</strong> — cloud sync, authentication, in-app purchases.</li>
+      </ul>
+      <p>We never ask for location, microphone, contacts, calendar or background camera access.</p>
+    </details>
+
+    <details>
+      <summary>Is NoRestNest a medical device?</summary>
+      <p>No. NoRestNest is a consumer fitness, nutrition and progress tracker. It is not a medical device, not medical advice, and not a substitute for a qualified professional. If you have a medical condition or are pregnant, consult a doctor before starting or changing a training or nutrition plan.</p>
+    </details>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" style="margin-bottom:14px;">
+          <img src="/assets/img/icon.png" alt="" />
+          <span>NoRestNest</span>
+        </a>
+        <p>Personal fitness, workout, nutrition and progress tracker. Built in the EU.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#screenshots">Screens</a></li>
+          <li><a href="/#pricing">Pro</a></li>
+          <li><a href="/#download">Download</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="/support.html">Help &amp; FAQ</a></li>
+          <li><a href="mailto:support@norestnest.com">Contact</a></li>
+          <li><a href="/support.html#delete">Delete my account</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/refund.html">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="y">2026</span> NoRestNest. All rights reserved.</span>
+      <span><a href="mailto:hello@norestnest.com">hello@norestnest.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>
