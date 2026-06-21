@@ -315,6 +315,36 @@ p  { color: var(--text-muted); margin: 0 0 14px; }
 .shot-caption { text-align: center; color: var(--text-muted); margin-top: 12px; font-size: 14px; }
 
 /* =========================================================
+   What it isn't (sassy cards)
+   ========================================================= */
+.not-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.not-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 24px;
+  position: relative;
+  transition: transform .15s ease, border-color .15s ease;
+}
+.not-card:hover { transform: translateY(-2px); border-color: rgba(255,138,61,0.35); }
+.not-card::before {
+  content: "—";
+  display: inline-block;
+  color: var(--orange);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1;
+  margin-right: 8px;
+  transform: translateY(-1px);
+}
+.not-card h3 { display: inline; font-size: 17px; letter-spacing: -.01em; color: var(--text); }
+.not-card p  { margin: 12px 0 0; color: var(--text-muted); font-size: 15px; }
+
+/* =========================================================
    Video block
    ========================================================= */
 .video-wrap {
