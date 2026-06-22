@@ -75,9 +75,9 @@
         <!-- Each .shot picks up a screenshot from assets/img/screenshots/ via inline background.
              Until real shots are dropped in, the data-placeholder attribute renders an intentional
              gradient + caption so the layout still reads as a phone screen. -->
-        <div class="shot is-side-left"  data-placeholder="Workout"></div>
-        <div class="shot is-front"      data-placeholder="Home"></div>
-        <div class="shot is-side-right" data-placeholder="Nutrition"></div>
+        <div class="shot is-side-left"  style="background-image:url('/assets/img/screenshots/workout.png')"></div>
+        <div class="shot is-front"      style="background-image:url('/assets/img/screenshots/home.png')"></div>
+        <div class="shot is-side-right" style="background-image:url('/assets/img/screenshots/nutrition.png')"></div>
       </div>
     </div>
   </div>
@@ -178,14 +178,9 @@
       <h2>Twenty seconds, one full session.</h2>
     </div>
     <div class="video-wrap reveal">
-      <!-- Drop a real video at assets/video/demo.mp4 and uncomment below -->
-      <!-- <video src="/assets/video/demo.mp4" autoplay muted loop playsinline></video> -->
-      <div class="video-placeholder">
-        <div class="play" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <div>Demo video — coming soon</div>
-      </div>
+      <img src="/assets/img/demo.gif"
+           alt="NoRestNest app demo — home, workout, and nutrition screens"
+           style="width:100%;height:100%;object-fit:contain;background:#0e0e0f;display:block;">
     </div>
   </div>
 </section>
