@@ -391,6 +391,52 @@ p  { color: var(--text-muted); margin: 0 0 14px; }
 }
 
 /* =========================================================
+   Screen tiles — 4-up portrait screenshot grid
+   ========================================================= */
+.screen-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 900px) { .screen-tiles { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (max-width: 480px)  { .screen-tiles { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+
+.screen-tile { display: flex; flex-direction: column; gap: 14px; }
+
+.screen-img {
+  aspect-ratio: 9 / 19.5;
+  border-radius: 24px;
+  background: var(--card);
+  background-size: cover;
+  background-position: center top;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.screen-img:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft), 0 20px 50px rgba(77,163,255,0.12);
+  animation-play-state: paused !important;
+}
+
+/* Smooth vertical-pan animation — simulates scrolling through the app screen */
+@keyframes phone-pan {
+  0%, 8%   { background-position: center 0%; }
+  70%, 92% { background-position: center 100%; }
+  100%     { background-position: center 0%; }
+}
+
+.screen-pan { animation: phone-pan 10s ease-in-out infinite; }
+.screen-pan-d0 { animation-delay:   0s; }
+.screen-pan-d1 { animation-delay: -2.5s; }
+.screen-pan-d2 { animation-delay: -5s; }
+.screen-pan-d3 { animation-delay: -7.5s; }
+
+.screen-cap strong { display: block; color: var(--text); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.screen-cap span   { color: var(--text-muted); font-size: 14px; }
+
+/* =========================================================
    Stack / tech bullets
    ========================================================= */
 .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
