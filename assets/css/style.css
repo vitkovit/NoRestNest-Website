@@ -395,12 +395,13 @@ p  { color: var(--text-muted); margin: 0 0 14px; }
    ========================================================= */
 .screen-tiles {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
   align-items: start;
+  max-width: 860px;
+  margin: 0 auto;
 }
-@media (max-width: 900px) { .screen-tiles { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-@media (max-width: 480px)  { .screen-tiles { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+@media (max-width: 640px) { .screen-tiles { grid-template-columns: 1fr; gap: 24px; max-width: 380px; } }
 
 .screen-tile { display: flex; flex-direction: column; gap: 14px; }
 
