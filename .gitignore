@@ -5,3 +5,6 @@ Thumbs.db
 *.log
 node_modules/
 *.mov
+
+# Private agent memory — personal working notes, never deploy to the public site
+.claude/

@@ -4,6 +4,20 @@ This file is the **agent briefing**. If you (Claude) are reading this, you've be
 
 ---
 
+## Exercise data + working notes (self-contained)
+
+This repo carries everything needed to build and correct **workout programs** here, without needing the app repo present.
+
+- **Exercise library:** `data/exercises.json` — a list of **1,597 exercises**. Each entry has:
+  `id, name, category, primaryMusclesSimple, primaryMusclesAdvanced, secondaryMusclesSimple, secondaryMusclesAdvanced, equipment, instructions, tips, hasVideo, videoMalePath, videoFemalePath, thumbnailMalePath, thumbnailFemalePath`.
+  **This is the canonical exercise list — pull exercise names, muscles, and equipment from here.**
+  Origin: copied from the app repo at `~/Developer/norestnest/assets/video/exercises_import.json`. If exercises change in the app, re-copy this file to resync.
+
+- **Working-style + personal notes:** `.claude/memory/` — the user's cross-project preferences and context (how to write copy, plain English, ASCII-first explanations, training-plan context, etc.). Start with `.claude/memory/MEMORY.md` (the index).
+  **This folder is gitignored** — it holds personal data and must never deploy to the public site. It stays local to whatever machine you're on.
+
+---
+
 ## What this repo is
 
 The **public marketing site for the NoRestNest mobile app** (norestnest.com).
