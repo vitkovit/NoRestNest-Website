@@ -44,7 +44,7 @@ NoRestNest-Website/
 ├── 404.html
 ├── assets/
 │   ├── css/style.css           # all styles. tokens at the top.
-│   ├── js/main.js              # nav scroll, mobile toggle, scroll-reveal, hero rotator
+│   ├── js/main.js              # mobile nav toggle, hero set-rating example, footer year
 │   ├── img/
 │   │   ├── icon.png            # app icon (used as logo + favicon)
 │   │   ├── og-image.png        # 1200×630 social-share card (TODO)
@@ -83,7 +83,7 @@ orange        #FF8A3D   Orange Ember    (feature accent, warnings)
 premium       #FFC107   Pro / Premium   (badges)
 ```
 
-Font: Inter (loaded from Google Fonts in each HTML head). Body weight 400, headlines 700.
+Fonts: Inter (body 400/500/600, headlines 700) + JetBrains Mono for labels and numbers. Both from Google Fonts in each HTML head.
 
 Tokens live as CSS variables at the top of `assets/css/style.css`. **Edit them there, not inline.**
 
@@ -136,12 +136,10 @@ Verify under the repo's **Settings → Pages**: `norestnest.com` should show "DN
 - Target aspect ratio: **9 / 19.5** (or close — modern phone). Width 1080 is fine.
 - See `SCREENSHOTS.md` for the capture + crop workflow.
 
-After dropping new screenshot PNGs into `assets/img/screenshots/`, wire them up by editing `index.html`:
+After dropping new screenshot PNGs into `assets/img/screenshots/`, wire them up in `index.html`:
 
-- **Hero stack** (3 phones): find `<div class="shot is-…">` blocks and replace the `data-placeholder="…"` attribute with `style="background-image:url(/assets/img/screenshots/FILENAME.png)"`.
-- **Screenshots strip** (horizontal scroll): same pattern on `<div class="shot-card">` blocks.
-
-Remove `data-placeholder` once a real image is set, so the placeholder caption disappears.
+- **Screens section** (`#screens`): each `<figure>` holds a `<div class="shot">` with a `<video>` (poster = the still PNG, source = `assets/img/videos/tileN.mp4`). Swap the `poster` / `<source>` paths. A still image works too: `<div class="shot"><img src="…"></div>`.
+- `.shot` crops the iOS status bar (top 120px of a 1206×2622 capture) and home indicator via a fixed aspect ratio + negative top margin — so uncropped captures are fine as long as they're 1206×2622 (or 320×696 video). Different dimensions: adjust `aspect-ratio` and `margin-top` on `.shot` in `style.css`.
 
 ---
 
@@ -157,18 +155,19 @@ Remove `data-placeholder` once a real image is set, so the placeholder caption d
 
 ## Editing playbook
 
-- **Adding a feature card:** copy a `.feature` block in `index.html`, swap the inline SVG icon, change the `tone-…` class for color. Tones available: default (blue), `tone-mint`, `tone-purple`, `tone-orange`, `tone-premium`.
-- **Adding a section:** wrap in `<section><div class="container">…</div></section>`. Use `.eyebrow` + `<h2>` pattern from existing sections.
+- **Layout language (redesign of 2026-08-30):** the landing page is a numbered spec sheet, not a card grid. No gradients, glows, blur, hover-lift, or scroll-reveal animation — that was the "obvious AI template" look the owner asked to get rid of. Keep it: hairline rules (`--rule`), left-aligned type, mono labels (`.mono`, JetBrains Mono), tabular numbers.
+- **Adding a feature:** add a `<div class="spec-row"><dt>Name <span class="tag mono">Area</span></dt><dd>…</dd></div>` to the `<dl class="spec">` in `#features`. Tag colors: `mint`, `purple`, `orange`, `gold` on the `.tag` span.
+- **Adding a section:** copy a `<section class="sec" id="…">` block — `.sec-label` (index number + short title, sticky on desktop) on the left, `.sec-body` on the right. Renumber the `.idx` spans.
+- **Hero example widget** (`#calc`): the easy/good/hard/failed numbers live in `assets/js/main.js` (`rules`). They are illustrative; the footer line in the widget says so. Don't present them as the app's real algorithm.
+- **Buttons:** `.btn` / `.btn-primary` still exist for secondary pages (404). On the landing page the platform links are the `.get` list, not buttons.
 - **Updating legal copy:** the canonical source is the app repo's `public/*.html`. If you have access to it, re-extract the body and regenerate. If you don't have access, edit `privacy.html` / `terms.html` / `refund.html` directly and note in the commit message that the app repo also needs updating to match.
-- **Going live with a video:** drop the file at `assets/video/demo.mp4`, then in `index.html` find `<!-- Drop a real video at assets/video/demo.mp4 …` and uncomment the `<video>` tag. Remove the `.video-placeholder` block.
 
 ---
 
 ## Known TODOs (state at last edit)
 
 - `og-image.png` — 1200×630 social-share card, currently missing (Open Graph link is set up; image file is the only thing missing).
-- Real Android screenshots — currently rendered as intentional gradient placeholders.
-- Real demo video — currently a styled placeholder block.
+- Screenshots/videos in `#screens` are iOS captures; the CLAUDE rule says Android — replace when Android captures exist (same 1206×2622 crop assumption, or adjust `.shot`).
 - Legal docs contain `TODO_LEGAL_ENTITY_NAME`, `TODO_REGISTERED_ADDRESS`, `TODO_VAT_NUMBER`, `TODO_POSTAL_ADDRESS`, `TODO_WEBSITE` placeholders — same in the app repo. Sync these when finalized.
 - Store badges (Google Play / App Store) currently show generic SVGs. Swap for the official badges from each store's brand guidelines before launch.
 

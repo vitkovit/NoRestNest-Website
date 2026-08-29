@@ -1,15 +1,8 @@
-// NoRestNest landing — small JS for nav scroll state, mobile toggle,
-// scroll-reveal, and hero screenshot carousel rotation.
+// NoRestNest landing — nav toggle, the set-rating example, footer year.
 // Keep this vanilla — no build step, edit-and-refresh.
 
 (() => {
   const nav = document.querySelector('.site-nav');
-  if (nav) {
-    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
   const toggle = document.querySelector('.nav-toggle');
   if (toggle && nav) {
     toggle.addEventListener('click', () => {
@@ -21,39 +14,31 @@
     });
   }
 
-  // IntersectionObserver scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window && reveals.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => io.observe(el));
-  } else {
-    reveals.forEach(el => el.classList.add('is-in'));
-  }
-
-  // Hero shot rotation — cycles front position through .shot elements
-  const stack = document.querySelector('.shot-stack');
-  if (stack) {
-    const shots = Array.from(stack.querySelectorAll('.shot'));
-    const positions = ['is-side-left', 'is-front', 'is-side-right'];
-    let idx = 0;
-    const layout = () => {
-      shots.forEach((el, i) => {
-        positions.forEach(p => el.classList.remove(p));
-        const slot = (i - idx + shots.length) % shots.length;
-        if (slot < positions.length) el.classList.add(positions[slot]);
-        else { el.style.opacity = '0'; el.style.transform = 'translateX(0) scale(.8)'; }
-        if (slot < positions.length) { el.style.opacity = ''; el.style.transform = ''; }
-      });
+  // Hero example: rate the set, read the next session's prescription.
+  // Illustrative numbers only — the app's real increments depend on the
+  // exercise type (barbell / bodyweight / timed) and the user's settings.
+  const calc = document.getElementById('calc');
+  if (calc) {
+    const base = { kg: 80, reps: 8 };
+    const rules = {
+      easy:   { kg: +2.5, reps: 0,  note: '+2.5 kg',         cls: 'up' },
+      good:   { kg:  0,   reps: 0,  note: 'hold',            cls: '' },
+      hard:   { kg:  0,   reps: 0,  note: 'hold, bank it',   cls: '' },
+      failed: { kg: -2.5, reps: 0,  note: '−2.5 kg, back off', cls: 'down' },
     };
-    layout();
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduce && shots.length > 3) {
-      setInterval(() => { idx = (idx + 1) % shots.length; layout(); }, 3500);
-    }
+    const out = document.getElementById('calc-next');
+    const delta = document.getElementById('calc-delta');
+    const buttons = Array.from(calc.querySelectorAll('.rate button'));
+
+    const fmt = n => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+    const apply = (rate) => {
+      const r = rules[rate] || rules.good;
+      buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.rate === rate)));
+      out.innerHTML = fmt(base.kg + r.kg) + '<small>kg × ' + (base.reps + r.reps) + '</small>';
+      delta.textContent = r.note;
+      delta.className = 'delta' + (r.cls ? ' ' + r.cls : '');
+    };
+    buttons.forEach(b => b.addEventListener('click', () => apply(b.dataset.rate)));
   }
 
   // Footer year
