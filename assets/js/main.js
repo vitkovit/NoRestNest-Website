@@ -1,5 +1,5 @@
-// NoRestNest landing — nav toggle, the set-rating example, footer year.
-// Keep this vanilla — no build step, edit-and-refresh.
+// NoRestNest landing — nav toggle, download dropdown, the progression
+// example table, footer year. Vanilla — no build step, edit-and-refresh.
 
 (() => {
   const nav = document.querySelector('.site-nav');
@@ -27,31 +27,79 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   }
 
-  // Hero example: rate the set, read the next session's prescription.
-  // Illustrative numbers only — the app's real increments depend on the
-  // exercise type (barbell / bodyweight / timed) and the user's settings.
-  const calc = document.getElementById('calc');
-  if (calc) {
-    const base = { kg: 80, reps: 8 };
-    const rules = {
-      easy:   { kg: +2.5, reps: 0,  note: '+2.5 kg',         cls: 'up' },
-      good:   { kg:  0,   reps: 0,  note: 'hold',            cls: '' },
-      hard:   { kg:  0,   reps: 0,  note: 'hold, bank it',   cls: '' },
-      failed: { kg: -2.5, reps: 0,  note: '−2.5 kg, back off', cls: 'down' },
-    };
-    const out = document.getElementById('calc-next');
-    const delta = document.getElementById('calc-delta');
-    const buttons = Array.from(calc.querySelectorAll('.rate button'));
+  // ---------------------------------------------------------------------
+  // Progression example. A direct port of the weight+reps path of the app's
+  // ProgressiveOverloadService (standard profile). Each set is compared to the
+  // same set number from the last session — never to an average.
+  // ---------------------------------------------------------------------
+  const engine = document.getElementById('engine');
+  if (engine) {
+    const PCT = { easy: 7.5, good: 2.5, hard: 0, failed: -10 };   // standard profile
+    const INC = 2.5;                                                 // plate increment, kg
+    const RANGE = { min: 8, max: 12 };                               // target rep range
 
-    const fmt = n => (Number.isInteger(n) ? String(n) : n.toFixed(1));
-    const apply = (rate) => {
-      const r = rules[rate] || rules.good;
-      buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.rate === rate)));
-      out.innerHTML = fmt(base.kg + r.kg) + '<small>kg × ' + (base.reps + r.reps) + '</small>';
-      delta.textContent = r.note;
-      delta.className = 'delta' + (r.cls ? ' ' + r.cls : '');
+    const roundToInc = (w) => {
+      if (w <= 0) return 0;
+      const r = Math.round(w / INC) * INC;
+      return r > 0 ? r : INC;
     };
-    buttons.forEach(b => b.addEventListener('click', () => apply(b.dataset.rate)));
+    const clamp = (n, lo, hi) => Math.min(Math.max(n, lo), hi);
+
+    const suggest = (last, felt) => {
+      let weight = roundToInc(last.kg * (1 + PCT[felt] / 100));
+      if (weight === 0 && last.kg > 0) weight = last.kg;
+
+      let reps;
+      if (felt === 'failed')      reps = clamp(last.reps - 1, 1, RANGE.max);
+      else if (felt === 'hard')   reps = clamp(last.reps, 1, RANGE.max);
+      else if (last.reps >= RANGE.max) reps = RANGE.min;             // top of range: reset, weight goes up
+      else                        reps = clamp(last.reps + 1, RANGE.min, RANGE.max);
+
+      // Double-progression guard: when reps reset to the minimum, the weight
+      // must really have gone up and the set's volume must not drop.
+      const doubleProg = last.reps >= RANGE.max && reps === RANGE.min && felt !== 'failed' && felt !== 'hard';
+      if (doubleProg) {
+        if (weight <= last.kg) weight = last.kg + INC;
+        const prevVol = last.kg * last.reps;
+        if (weight * reps < prevVol) reps = Math.min(Math.ceil(prevVol / weight), RANGE.max);
+      }
+
+      let kind, reason;
+      if (felt === 'failed') {
+        kind = 'down'; reason = `Previous set failed. Reducing weight by ${Math.abs(PCT.failed)}%.`;
+      } else if (weight > last.kg) {
+        kind = 'up';
+        reason = felt === 'easy'
+          ? `Last set felt easy! Increasing weight by ${PCT.easy}%.`
+          : `Time to increase weight (+${PCT.good}%).`;
+      } else if (weight < last.kg) {
+        kind = 'down'; reason = 'Reducing weight to improve form.';
+      } else if (felt === 'hard') {
+        kind = 'hold'; reason = 'Previous set was challenging. Maintain current weight.';
+      } else {
+        kind = 'up'; reason = `Aim for ${reps} reps this set.`;
+      }
+      return { weight, reps, kind, reason };
+    };
+
+    const fmt = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+
+    engine.querySelectorAll('.set').forEach(row => {
+      const last = { kg: parseFloat(row.dataset.kg), reps: parseInt(row.dataset.reps, 10) };
+      const chips = Array.from(row.querySelectorAll('.feel button'));
+      const out = row.querySelector('.next');
+      const why = row.querySelector('.why');
+
+      const apply = (felt) => {
+        chips.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.feel === felt)));
+        const s = suggest(last, felt);
+        out.innerHTML = `${fmt(s.weight)}<small>kg</small> &times; ${s.reps}`;
+        out.dataset.kind = s.kind;
+        why.textContent = s.reason;
+      };
+      chips.forEach(b => b.addEventListener('click', () => apply(b.dataset.feel)));
+      apply(row.dataset.felt || 'good');
+    });
   }
 
   // Footer year

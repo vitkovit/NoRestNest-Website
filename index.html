@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-<link rel="stylesheet" href="/assets/css/style.css" />
+<link rel="stylesheet" href="/assets/css/style.css?v=3" />
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-587GVXPDF7"></script>
@@ -90,53 +90,98 @@
       </div>
     </div>
 
-    <!-- Live example: rate the set, read the next weight. -->
-    <div class="calc" id="calc" aria-label="Example: how the next weight is picked">
-      <div class="calc-head">
-        <span class="mono">Bench press</span>
-        <span class="mono">Set 3 of 3</span>
-      </div>
-      <div class="calc-body">
-        <div class="calc-row"><span class="k">Today</span><span class="v">80 kg <small>&times; 8</small></span></div>
-        <div class="calc-row"><span class="k">Target</span><span class="v">8 reps</span></div>
-        <p class="calc-q">How did it feel?</p>
-        <div class="rate" role="group" aria-label="Rate the set">
-          <button type="button" data-rate="easy"   aria-pressed="false">Easy</button>
-          <button type="button" data-rate="good"   aria-pressed="true">Good</button>
-          <button type="button" data-rate="hard"   aria-pressed="false">Hard</button>
-          <button type="button" data-rate="failed" aria-pressed="false">Failed</button>
-        </div>
-        <div class="calc-out">
-          <div>
-            <div class="k">Next session</div>
-            <div class="big" id="calc-next">80<small>kg &times; 8</small></div>
-          </div>
-          <div class="delta" id="calc-delta">hold</div>
-        </div>
-      </div>
-      <div class="calc-foot">Illustration. Real increments depend on the exercise type and your settings.</div>
+    <div class="hero-shot">
+      <div class="shot"><img src="/assets/img/screenshots/home.png" alt="NoRestNest home screen: today's program, the muscles it hits, and a Start button" width="1206" height="2622" /></div>
     </div>
   </div>
 </section>
 
-<!-- ============= 01 Features ============= -->
-<section class="sec" id="features">
+<!-- ============= 01 The math ============= -->
+<section class="sec" id="math">
   <div class="container">
     <div class="sec-label">
       <span class="idx">01</span>
+      <h2>The math</h2>
+    </div>
+    <div class="sec-body">
+      <h2>Rate the set. The next one is already decided.</h2>
+      <p class="lead">Every set is compared to the same set last time — set 3 to set 3, never to an average. Say how it felt and the next session is written for you. Try it: change how a set felt.</p>
+
+      <div class="engine" id="engine">
+        <div class="engine-head">
+          <span class="ex">Bench press</span>
+          <span class="mono">3 sets &middot; 8&ndash;12 reps &middot; 2.5 kg plates</span>
+        </div>
+        <div class="engine-cols mono" aria-hidden="true">
+          <span>Set</span><span>Last session</span><span>Felt</span><span>Next session</span>
+        </div>
+
+        <div class="set" data-kg="80" data-reps="10" data-felt="good">
+          <span class="n mono">1</span>
+          <span class="last">80<small>kg</small> &times; 10</span>
+          <span class="feel" role="group" aria-label="How set 1 felt">
+            <button type="button" data-feel="easy" aria-pressed="false">Easy</button>
+            <button type="button" data-feel="good" aria-pressed="false">Good</button>
+            <button type="button" data-feel="hard" aria-pressed="false">Hard</button>
+            <button type="button" data-feel="failed" aria-pressed="false">Failed</button>
+          </span>
+          <span class="out"><span class="next"></span><span class="why"></span></span>
+        </div>
+
+        <div class="set" data-kg="80" data-reps="9" data-felt="good">
+          <span class="n mono">2</span>
+          <span class="last">80<small>kg</small> &times; 9</span>
+          <span class="feel" role="group" aria-label="How set 2 felt">
+            <button type="button" data-feel="easy" aria-pressed="false">Easy</button>
+            <button type="button" data-feel="good" aria-pressed="false">Good</button>
+            <button type="button" data-feel="hard" aria-pressed="false">Hard</button>
+            <button type="button" data-feel="failed" aria-pressed="false">Failed</button>
+          </span>
+          <span class="out"><span class="next"></span><span class="why"></span></span>
+        </div>
+
+        <div class="set" data-kg="80" data-reps="8" data-felt="hard">
+          <span class="n mono">3</span>
+          <span class="last">80<small>kg</small> &times; 8</span>
+          <span class="feel" role="group" aria-label="How set 3 felt">
+            <button type="button" data-feel="easy" aria-pressed="false">Easy</button>
+            <button type="button" data-feel="good" aria-pressed="false">Good</button>
+            <button type="button" data-feel="hard" aria-pressed="false">Hard</button>
+            <button type="button" data-feel="failed" aria-pressed="false">Failed</button>
+          </span>
+          <span class="out"><span class="next"></span><span class="why"></span></span>
+        </div>
+
+        <div class="engine-foot">
+          <span><b>Easy</b> +7.5% weight</span>
+          <span><b>Good</b> +2.5% weight, +1 rep</span>
+          <span><b>Hard</b> hold</span>
+          <span><b>Failed</b> −10% weight, −1 rep</span>
+        </div>
+      </div>
+      <p class="engine-note">Standard profile shown, rounded to your plates. Conservative, aggressive and custom profiles change the percentages. Hit the top of the rep range and the weight goes up while reps reset to the bottom. Bodyweight and timed exercises progress in reps and seconds instead.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============= 02 Features ============= -->
+<section class="sec" id="features">
+  <div class="container">
+    <div class="sec-label">
+      <span class="idx">02</span>
       <h2>What it does</h2>
-      <p>No social feed, no ads, no fluff. Open it, log your set, get back to lifting.</p>
     </div>
     <div class="sec-body">
       <h2>Everything you need at the rack.</h2>
+      <p class="lead">No social feed, no ads, no fluff. Open it, log your set, get back to lifting.</p>
       <dl class="spec">
         <div class="spec-row">
           <dt>Progressive overload <span class="tag mono mint">Workout</span></dt>
-          <dd>You walk in. Your next set's weight is already decided. Last one felt easy, it goes up. You missed reps, it backs off.</dd>
+          <dd>You walk in. Your next set's weight is already decided. Last one felt easy, it goes up. You missed reps, it backs off. You stop being your own program-design committee at 6am.</dd>
         </div>
         <div class="spec-row">
           <dt>Logging <span class="tag mono">Workout</span></dt>
-          <dd>Two taps per set. The rest timer runs itself. Reshuffle the order mid-workout without losing the working weight.</dd>
+          <dd>Two taps per set. The rest timer runs itself. Reshuffle the order mid-workout without losing the working weight. The app gets out of the way.</dd>
         </div>
         <div class="spec-row">
           <dt>Exercise types <span class="tag mono orange">Workout</span></dt>
@@ -159,15 +204,16 @@
   </div>
 </section>
 
-<!-- ============= 02 Screens ============= -->
+<!-- ============= 03 Screens ============= -->
 <section class="sec" id="screens">
   <div class="container">
     <div class="sec-label">
-      <span class="idx">02</span>
-      <h2>Every screen, doing its job</h2>
-      <p>No demo mode. No stock photos. The real thing.</p>
+      <span class="idx">03</span>
+      <h2>Screens</h2>
     </div>
     <div class="sec-body">
+      <h2>Every screen, doing its job.</h2>
+      <p class="lead">No demo mode. No stock photos. The real thing.</p>
       <div class="screens">
         <figure>
           <figcaption><strong>Active Workout</strong><span>Sets, weight, reps — two taps.</span></figcaption>
@@ -206,16 +252,16 @@
   </div>
 </section>
 
-<!-- ============= 03 What it isn't ============= -->
+<!-- ============= 04 What it isn't ============= -->
 <section class="sec" id="not">
   <div class="container">
     <div class="sec-label">
-      <span class="idx">03</span>
+      <span class="idx">04</span>
       <h2>What it isn't</h2>
-      <p>Because there are already too many apps doing them.</p>
     </div>
     <div class="sec-body">
       <h2>Things NoRestNest won't do.</h2>
+      <p class="lead">Because there are already too many apps doing them.</p>
       <ul class="wont">
         <li><strong>It won't pretend to be your coach.</strong> The math suggests the next weight. That's it. No motivational quote, no fake voice in your head, no "you got this!" notification at 6am.</li>
         <li><strong>It won't gamify your gains.</strong> No XP. No levels. No badges for "Squat Apprentice — Tier 2." You're not collecting points. You're collecting muscle.</li>
@@ -225,15 +271,15 @@
   </div>
 </section>
 
-<!-- ============= 04 Pricing ============= -->
+<!-- ============= 05 Pricing ============= -->
 <section class="sec" id="pricing">
   <div class="container">
     <div class="sec-label">
-      <span class="idx">04</span>
+      <span class="idx">05</span>
       <h2>Pricing</h2>
-      <p>30 days free. Then Pro.</p>
     </div>
     <div class="sec-body">
+      <h2>30 days free. Then Pro.</h2>
       <p class="lead">Every new account gets 30 days of Pro at no cost — no credit card needed. After the trial, pick a plan or the app reverts to local-only logging.</p>
       <table class="plans">
         <thead>
@@ -286,17 +332,16 @@
   </div>
 </section>
 
-<!-- ============= 05 Contact ============= -->
+<!-- ============= 06 Contact ============= -->
 <section class="sec" id="contact">
   <div class="container">
     <div class="sec-label">
-      <span class="idx">05</span>
-      <h2>Talk to us</h2>
-      <p>Replies come from the developer.</p>
+      <span class="idx">06</span>
+      <h2>Contact</h2>
     </div>
     <div class="sec-body">
       <h2>How to reach the developer.</h2>
-      <p class="lead">Two channels. One for bugs (in-app), one for everything else (email).</p>
+      <p class="lead">Two channels. One for bugs (in-app), one for everything else (email). Replies come from the developer.</p>
       <div class="reach">
         <div class="reach-row">
           <strong>Bug or crash in the app</strong>
@@ -320,32 +365,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============= Closing ============= -->
-<section class="sec end">
-  <div class="container">
-    <div class="sec-label">
-      <span class="idx">&nbsp;</span>
-    </div>
-    <div class="sec-body">
-      <h2>Skip the math. Hit the PR.</h2>
-      <p class="lead">Closed beta. Pick a platform, you're in.</p>
-      <div class="get">
-        <a href="https://play.google.com/apps/internaltest/4701526556407883186" target="_blank" rel="noopener" aria-label="Join Android beta">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3c-.4.4-.6.9-.6 1.6v16.2c0 .7.2 1.2.6 1.6l9.4-9.6L3.6 2.3zM14.5 13l2.6 2.6-9.7 5.6c-.5.3-1 .3-1.4 0L14.5 13zM21 11.1c.7.4.7 1.4 0 1.8l-2.7 1.6-3-3 3-3 2.7 1.6zM5.9 2.7l9.7 5.6L13 11l-7.1-7.3c.4-.3 1-.4 1-.4z"/></svg></span>
-          <span><span class="plat">Android</span><span class="how">Join the beta on Google Play</span></span>
-          <span class="arrow">&rarr;</span>
-        </a>
-        <a href="https://testflight.apple.com/join/7FCcke9v" target="_blank" rel="noopener" aria-label="Join iOS TestFlight">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.8-3.5.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 3 2.5 1.2 0 1.6-.8 3.1-.8s1.8.8 3.1.8 2.1-1.2 2.9-2.4c.9-1.4 1.3-2.7 1.3-2.8-.1-.1-2.7-1-2.7-3.9zM14 5.4c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.5.6-1 1.6-.9 2.6 1 .1 2-.5 2.6-1.2z"/></svg></span>
-          <span><span class="plat">iOS</span><span class="how">Join the TestFlight</span></span>
-          <span class="arrow">&rarr;</span>
-        </a>
-      </div>
-      <p class="get-note">Public Play Store / App Store launch coming soon.</p>
     </div>
   </div>
 </section>
@@ -397,6 +416,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/main.js?v=3" defer></script>
 </body>
 </html>
