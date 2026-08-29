@@ -14,6 +14,19 @@
     });
   }
 
+  // Download dropdown in the header
+  const dl = document.querySelector('.nav-dl');
+  if (dl) {
+    const btn = dl.querySelector('.nav-cta');
+    const setOpen = (open) => {
+      dl.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    };
+    btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!dl.classList.contains('is-open')); });
+    document.addEventListener('click', (e) => { if (!dl.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  }
+
   // Hero example: rate the set, read the next session's prescription.
   // Illustrative numbers only — the app's real increments depend on the
   // exercise type (barbell / bodyweight / timed) and the user's settings.
