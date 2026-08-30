@@ -122,6 +122,15 @@
     render();
   }
 
+  // Per-section "Show details" — reveals the folded copy (.more) in that section
+  document.querySelectorAll('.sec-more').forEach(btn => {
+    const sec = btn.closest('.sec');
+    btn.addEventListener('click', () => {
+      const open = sec.classList.toggle('is-expanded');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+
   // Footer year
   const year = document.getElementById('y');
   if (year) year.textContent = String(new Date().getFullYear());

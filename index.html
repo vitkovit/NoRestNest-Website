@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-<link rel="stylesheet" href="/assets/css/style.css?v=7" />
+<link rel="stylesheet" href="/assets/css/style.css?v=8" />
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-587GVXPDF7"></script>
@@ -67,7 +67,7 @@
         <span class="mono">iOS &amp; Android</span>
       </div>
       <h1>You lift.<br/>We do the <span class="accent">math.</span></h1>
-      <p class="lead">Rate each set — <em>easy, good, hard, failed</em> — and NoRestNest precalculates exactly what to lift next time. Pure arithmetic. No "AI" guessing your gains, no coach yelling in your ear. <strong>Free for 30 days</strong>, no card needed.</p>
+      <p class="lead">Rate each set — <em>easy, good, hard, failed</em> — and the next session is already written. Pure arithmetic, no "AI" guessing. <strong>Free for 30 days</strong>, no card needed.</p>
 
       <div class="get" id="download">
         <a href="https://play.google.com/apps/testing/com.norestnest.app" target="_blank" rel="noopener" aria-label="Join Android early access">
@@ -102,7 +102,7 @@
     <div class="sec-body">
       <span class="kicker">The math</span>
       <h2>Rate the set. The next one is already decided.</h2>
-      <p class="lead">Every set is compared to the same set last time — set 3 to set 3, never to an average. Say how it felt and the next session is written for you. Try it with your own numbers.</p>
+      <p class="lead">Set 3 is compared to last time's set 3, never to an average. Try it with your own numbers.</p>
 
       <div class="engine" id="engine">
         <div class="engine-head">
@@ -173,7 +173,7 @@
         </div>
 
       </div>
-      <p class="engine-note">Standard settings shown, weight rounded to the plate you pick. How aggressive the progression is, and how bodyweight and timed exercises progress, is set in the app.</p>
+      <p class="engine-note">Standard settings, rounded to the plate you pick. How aggressive it gets is set in the app.</p>
     </div>
   </div>
 </section>
@@ -184,31 +184,32 @@
     <div class="sec-body">
       <span class="kicker">What it does</span>
       <h2>Everything you need at the rack.</h2>
-      <p class="lead">No social feed, no ads, no fluff. Open it, log your set, get back to lifting.</p>
+      <p class="lead">No social feed, no ads, no fluff.</p>
+      <button type="button" class="sec-more" aria-expanded="false"><span class="on">Show details</span><span class="off">Hide details</span></button>
       <dl class="spec">
         <div class="spec-row">
           <dt>Progressive overload <span class="tag mono mint">Workout</span></dt>
-          <dd>You walk in. Your next set's weight is already decided. Last one felt easy, it goes up. You missed reps, it backs off. You stop being your own program-design committee at 6am.</dd>
+          <dd>Your next set's weight is already decided. <span class="more">Last one felt easy, it goes up. You missed reps, it backs off. You stop being your own program-design committee at 6am.</span></dd>
         </div>
         <div class="spec-row">
           <dt>Logging <span class="tag mono">Workout</span></dt>
-          <dd>Two taps per set. The rest timer runs itself. Reshuffle the order mid-workout without losing the working weight. The app gets out of the way.</dd>
+          <dd>Two taps per set. The rest timer runs itself. <span class="more">Reshuffle the order mid-workout without losing the working weight. The app gets out of the way.</span></dd>
         </div>
         <div class="spec-row">
           <dt>Exercise types <span class="tag mono orange">Workout</span></dt>
-          <dd>Barbell, bodyweight, and timed work each progress on their own scale. Tune how aggressive that is, or trust the defaults.</dd>
+          <dd>Barbell, bodyweight and timed work each progress on their own scale. <span class="more">Tune how aggressive that is, or trust the defaults.</span></dd>
         </div>
         <div class="spec-row">
           <dt>Macros <span class="tag mono purple">Nutrition</span></dt>
-          <dd>Snap your plate, scan a barcode, or just type the food. Calories, protein, carbs, fat — logged. Water alongside, meal-prep batches if you cook ahead, and today's targets always showing what you still owe yourself.</dd>
+          <dd>Snap your plate, scan a barcode, or just type the food. <span class="more">Calories, protein, carbs, fat — logged. Water alongside, meal-prep batches if you cook ahead, and today's targets always showing what you still owe yourself.</span></dd>
         </div>
         <div class="spec-row">
           <dt>Body map <span class="tag mono">Progress</span></dt>
-          <dd>What's fried, what's recovered, what's been ignored for three weeks. Ends the "did I hit shoulders this week?" debate.</dd>
+          <dd>What's fried, what's recovered, what's been ignored for three weeks. <span class="more">Ends the "did I hit shoulders this week?" debate.</span></dd>
         </div>
         <div class="spec-row">
           <dt>Charts <span class="tag mono gold">Progress</span></dt>
-          <dd>PRs, weekly volume, bodyweight — one screen, no spin. They go up when you show up. They don't when you don't. Either way, they don't lie.</dd>
+          <dd>PRs, weekly volume, bodyweight — one screen, no spin. <span class="more">They go up when you show up. They don't when you don't. Either way, they don't lie.</span></dd>
         </div>
       </dl>
     </div>
@@ -267,10 +268,11 @@
       <span class="kicker">What it isn't</span>
       <h2>Things NoRestNest won't do.</h2>
       <p class="lead">Because there are already too many apps doing them.</p>
+      <button type="button" class="sec-more" aria-expanded="false"><span class="on">Show details</span><span class="off">Hide details</span></button>
       <ul class="wont">
-        <li><strong>It won't pretend to be your coach.</strong> The math suggests the next weight. That's it. No motivational quote, no fake voice in your head, no "you got this!" notification at 6am.</li>
-        <li><strong>It won't gamify your gains.</strong> No XP. No levels. No badges for "Squat Apprentice — Tier 2." You're not collecting points. You're collecting muscle.</li>
-        <li><strong>It won't sell your data. To anyone.</strong> No ad SDKs, no analytics broker, no "anonymized aggregate" cop-out. Your protein intake is not a product.</li>
+        <li><strong>It won't pretend to be your coach.</strong> <span class="more">The math suggests the next weight. That's it. No motivational quote, no fake voice in your head, no "you got this!" notification at 6am.</span></li>
+        <li><strong>It won't gamify your gains.</strong> <span class="more">No XP. No levels. No badges for "Squat Apprentice — Tier 2." You're not collecting points. You're collecting muscle.</span></li>
+        <li><strong>It won't sell your data. To anyone.</strong> <span class="more">No ad SDKs, no analytics broker, no "anonymized aggregate" cop-out. Your protein intake is not a product.</span></li>
       </ul>
     </div>
   </div>
@@ -282,7 +284,7 @@
     <div class="sec-body">
       <span class="kicker">Pricing</span>
       <h2>30 days free. Then Pro.</h2>
-      <p class="lead">Every new account gets 30 days of Pro at no cost — no credit card needed. Both plans include everything; the only difference is how often you pay.</p>
+      <p class="lead">30 days of Pro free, no card. Both plans include everything — you only choose how often you pay.</p>
       <div class="plans">
         <ul class="plan-features">
           <li>Workout logging with precalculated progressive overload</li>
@@ -304,7 +306,7 @@
           </div>
         </div>
       </div>
-      <p class="plans-note">After the 30-day trial, the app drops to local-only logging (no cloud sync, no smart builder, no food search) unless you subscribe. Cancel anytime in the App Store or Play Store.</p>
+      <p class="plans-note">No subscription after the trial: local-only logging, no cloud sync, no smart builder, no food search. Cancel anytime in the App Store or Play Store.</p>
     </div>
   </div>
 </section>
@@ -315,27 +317,28 @@
     <div class="sec-body">
       <span class="kicker">Contact</span>
       <h2>How to reach the developer.</h2>
-      <p class="lead">Two channels. One for bugs (in-app), one for everything else (email). Replies come from the developer.</p>
+      <p class="lead">Bugs from inside the app, everything else by email. Replies come from the developer.</p>
+      <button type="button" class="sec-more" aria-expanded="false"><span class="on">Show details</span><span class="off">Hide details</span></button>
       <div class="reach">
         <div class="reach-row">
           <strong>Bug or crash in the app</strong>
           <div>
             <p>Open the app → <em>Profile → Report a Bug</em>.</p>
-            <p>It opens your mail app with device, OS, app version and your user ID prefilled — saves you typing it and saves us guessing. Goes to <code>support@norestnest.com</code>.</p>
+            <p class="more">It opens your mail app with device, OS, app version and your user ID prefilled — saves you typing it and saves us guessing. Goes to <code>support@norestnest.com</code>.</p>
           </div>
         </div>
         <div class="reach-row">
           <strong>Everything else</strong>
           <div>
             <p><a href="mailto:contact@norestnest.com">contact@norestnest.com</a></p>
-            <p>Questions, refunds, business — anything that isn't a bug.</p>
+            <p class="more">Questions, refunds, business — anything that isn't a bug.</p>
           </div>
         </div>
         <div class="reach-row">
           <strong>Privacy &amp; data requests</strong>
           <div>
             <p><a href="mailto:privacy@norestnest.com">privacy@norestnest.com</a></p>
-            <p>Account deletion, GDPR access, data export.</p>
+            <p class="more">Account deletion, GDPR access, data export.</p>
           </div>
         </div>
       </div>
@@ -390,6 +393,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/main.js?v=7" defer></script>
+<script src="/assets/js/main.js?v=8" defer></script>
 </body>
 </html>
