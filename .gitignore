@@ -8,3 +8,6 @@ node_modules/
 
 # Private agent memory — personal working notes, never deploy to the public site
 .claude/
+
+# raw background source (6.8 MB) — optimized copies live in assets/img/
+black-sand-picjumbo-com.jpeg

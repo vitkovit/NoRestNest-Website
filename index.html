@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-<link rel="stylesheet" href="/assets/css/style.css?v=4" />
+<link rel="stylesheet" href="/assets/css/style.css?v=5" />
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-587GVXPDF7"></script>
@@ -111,13 +111,6 @@
         <div class="engine-head">
           <span class="ex">Bench press</span>
           <span class="engine-ctl">
-            <label>Profile
-              <select id="eng-profile" aria-label="Progression profile">
-                <option value="standard" selected>Standard</option>
-                <option value="conservative">Conservative</option>
-                <option value="aggressive">Aggressive</option>
-              </select>
-            </label>
             <label>Reps
               <span class="range"><input type="number" id="eng-min" value="8" min="1" max="50" inputmode="numeric" aria-label="Rep range minimum">&ndash;<input type="number" id="eng-max" value="12" min="1" max="50" inputmode="numeric" aria-label="Rep range maximum"></span>
             </label>
@@ -182,9 +175,8 @@
           <span class="out"><span class="next"></span><span class="why"></span></span>
         </div>
 
-        <div class="engine-foot" id="eng-legend"></div>
       </div>
-      <p class="engine-note">Type your own last session. Weight is rounded to the plate you pick. Hit the top of the rep range and the weight goes up while reps reset to the bottom. Bodyweight and timed exercises progress in reps and seconds instead; this table is the weight-and-reps path.</p>
+      <p class="engine-note">Standard settings shown, weight rounded to the plate you pick. How aggressive the progression is, and how bodyweight and timed exercises progress, is set in the app.</p>
     </div>
   </div>
 </section>
@@ -305,53 +297,28 @@
     </div>
     <div class="sec-body">
       <h2>30 days free. Then Pro.</h2>
-      <p class="lead">Every new account gets 30 days of Pro at no cost — no credit card needed. After the trial, pick a plan or the app reverts to local-only logging.</p>
-      <table class="plans">
-        <thead>
-          <tr>
-            <th scope="col">Plan</th>
-            <th scope="col">Pro Monthly</th>
-            <th scope="col">Pro Yearly <span class="best">Best value</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Price</td>
-            <td data-plan="Monthly"><span class="price">$4.99<small>/ month</small></span></td>
-            <td data-plan="Yearly"><span class="price">$29.99<small>/ year</small></span><span class="sub">$2.50/month — save 50%</span></td>
-          </tr>
-          <tr>
-            <td>Workout logging with precalculated progressive overload</td>
-            <td data-plan="Monthly" class="yes">Included</td>
-            <td data-plan="Yearly" class="yes">Included</td>
-          </tr>
-          <tr>
-            <td>Nutrition + barcode + food search</td>
-            <td data-plan="Monthly" class="yes">Included</td>
-            <td data-plan="Yearly" class="yes">Included</td>
-          </tr>
-          <tr>
-            <td>Smart program builder</td>
-            <td data-plan="Monthly" class="yes">Included</td>
-            <td data-plan="Yearly" class="yes">Included</td>
-          </tr>
-          <tr>
-            <td>Cloud sync across devices</td>
-            <td data-plan="Monthly" class="yes">Included</td>
-            <td data-plan="Yearly" class="yes">Included</td>
-          </tr>
-          <tr>
-            <td>Body view, progress charts, unlimited history</td>
-            <td data-plan="Monthly" class="yes">Included</td>
-            <td data-plan="Yearly" class="yes">Included</td>
-          </tr>
-          <tr>
-            <td>Billing</td>
-            <td data-plan="Monthly">Charged monthly</td>
-            <td data-plan="Yearly">Charged once a year</td>
-          </tr>
-        </tbody>
-      </table>
+      <p class="lead">Every new account gets 30 days of Pro at no cost — no credit card needed. Both plans include everything; the only difference is how often you pay.</p>
+      <div class="plans">
+        <ul class="plan-features">
+          <li>Workout logging with precalculated progressive overload</li>
+          <li>Nutrition + barcode + food search</li>
+          <li>Smart program builder</li>
+          <li>Cloud sync across devices</li>
+          <li>Body view, progress charts, unlimited history</li>
+        </ul>
+        <div class="plan-prices">
+          <div class="plan">
+            <span class="plan-name">Pro Monthly</span>
+            <span class="price">$4.99<small>/ month</small></span>
+            <span class="plan-sub">Charged monthly</span>
+          </div>
+          <div class="plan is-best">
+            <span class="plan-name">Pro Yearly <span class="best">Best value</span></span>
+            <span class="price">$29.99<small>/ year</small></span>
+            <span class="plan-sub">$2.50/month — save 50%. Charged once a year.</span>
+          </div>
+        </div>
+      </div>
       <p class="plans-note">After the 30-day trial, the app drops to local-only logging (no cloud sync, no smart builder, no food search) unless you subscribe. Cancel anytime in the App Store or Play Store.</p>
     </div>
   </div>
@@ -441,6 +408,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/main.js?v=4" defer></script>
+<script src="/assets/js/main.js?v=5" defer></script>
 </body>
 </html>
