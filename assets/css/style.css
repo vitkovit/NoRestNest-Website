@@ -7,8 +7,8 @@
   --card:          #232326;
   --border:        #2A2A2E;
   --text:          #FFFFFF;
-  --text-muted:    #BDBDC3;   /* lifted from #A0A0A5 for contrast over the texture */
-  --text-dim:      #8E8E96;   /* lifted from #6B6B70 */
+  --text-muted:    #CACACF;   /* lifted from #A0A0A5 for contrast over the texture */
+  --text-dim:      #9A9AA2;   /* lifted from #6B6B70 */
 
   --accent:        #4DA3FF; /* Electric Blue */
   --mint:          #5AC8C8; /* Neon Mint     */
@@ -42,26 +42,30 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--font-sans);
   background: var(--bg);
-  position: relative;
   color: var(--text);
   line-height: 1.6;
   font-size: 17px;
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-/* Full-page texture: a fixed layer under the whole page (position:fixed instead
-   of background-attachment:fixed, which iOS ignores). Overlay keeps contrast. */
-body::before {
-  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(14,14,15,.58) 0%, rgba(14,14,15,.70) 100%),
-    url(/assets/img/bg-sand.jpg) center / cover no-repeat var(--bg);
+/* Full-page texture. Two fixed layers: the image (moved by JS for parallax —
+   .bg-img is taller than the viewport, translateY scales with scroll so the
+   whole image travels over the page) and a veil that keeps contrast even. */
+.bg-img {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: -2; pointer-events: none;
+  height: max(150vw, 175vh);
+  background: url(/assets/img/bg-sand.jpg) center top / cover no-repeat var(--bg);
+  will-change: transform;
+}
+.bg-veil {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(14,14,15,.62) 0%, rgba(14,14,15,.74) 100%);
 }
 @media (max-width: 760px) {
-  body::before { background-image:
-    linear-gradient(180deg, rgba(14,14,15,.64) 0%, rgba(14,14,15,.74) 100%),
-    url(/assets/img/bg-sand-m.jpg); }
+  .bg-img { background-image: url(/assets/img/bg-sand-m.jpg); height: max(240vw, 190vh); }
+  .bg-veil { background: linear-gradient(180deg, rgba(14,14,15,.68) 0%, rgba(14,14,15,.78) 100%); }
 }
 img, svg, video { display: block; max-width: 100%; height: auto; }
 a { color: var(--text); text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
@@ -72,6 +76,7 @@ button { font-family: inherit; }
 /* =========================================================
    Type
    ========================================================= */
+.hero-copy, .sec-body, .legal .container { text-shadow: 0 1px 2px rgba(0,0,0,.55); }
 h1, h2, h3, h4 { font-weight: 700; color: var(--text); margin: 0 0 16px; letter-spacing: -0.02em; }
 h1 { font-size: clamp(46px, 7.6vw, 116px); line-height: 0.94; letter-spacing: -0.04em; }
 h2 { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.05; letter-spacing: -0.03em; }
@@ -223,7 +228,7 @@ body { padding-top: 56px; }
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
-.hero .lead { color: #D2D2D7; }
+.hero .lead { color: #E2E2E6; }
 .hero-shot { display: flex; justify-content: flex-end; }
 .hero-shot .shot { width: min(100%, 340px); }
 @media (max-width: 960px) {
@@ -245,6 +250,7 @@ body { padding-top: 56px; }
 .hero h1 { margin-bottom: 24px; }
 .hero h1 .accent { color: var(--accent); }
 .hero .lead { margin-bottom: 28px; }
+.hero h1 { text-shadow: 0 2px 12px rgba(0,0,0,.45); }
 
 /* Platform links — two clear targets with platform icons */
 .get {

@@ -131,6 +131,28 @@
     });
   });
 
+  // Parallax: the texture layer is taller than the viewport; move it so its
+  // full height travels exactly over the page's scroll range (slower than
+  // the content, like something at a distance). Off for reduced motion.
+  const bgImg = document.querySelector('.bg-img');
+  if (bgImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let k = 0;
+    const measure = () => {
+      const vh = window.innerHeight;
+      const range = document.documentElement.scrollHeight - vh;
+      const slack = bgImg.offsetHeight - vh;
+      k = range > 0 && slack > 0 ? Math.min(slack / range, 0.6) : 0;
+      place();
+    };
+    const place = () => {
+      bgImg.style.transform = `translate3d(0, ${-(window.scrollY * k).toFixed(1)}px, 0)`;
+    };
+    window.addEventListener('scroll', place, { passive: true });
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    measure();
+  }
+
   // Footer year
   const year = document.getElementById('y');
   if (year) year.textContent = String(new Date().getFullYear());
