@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-<link rel="stylesheet" href="/assets/css/style.css?v=3" />
+<link rel="stylesheet" href="/assets/css/style.css?v=4" />
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-587GVXPDF7"></script>
@@ -105,20 +105,42 @@
     </div>
     <div class="sec-body">
       <h2>Rate the set. The next one is already decided.</h2>
-      <p class="lead">Every set is compared to the same set last time — set 3 to set 3, never to an average. Say how it felt and the next session is written for you. Try it: change how a set felt.</p>
+      <p class="lead">Every set is compared to the same set last time — set 3 to set 3, never to an average. Say how it felt and the next session is written for you. Try it with your own numbers.</p>
 
       <div class="engine" id="engine">
         <div class="engine-head">
           <span class="ex">Bench press</span>
-          <span class="mono">3 sets &middot; 8&ndash;12 reps &middot; 2.5 kg plates</span>
+          <span class="engine-ctl">
+            <label>Profile
+              <select id="eng-profile" aria-label="Progression profile">
+                <option value="standard" selected>Standard</option>
+                <option value="conservative">Conservative</option>
+                <option value="aggressive">Aggressive</option>
+              </select>
+            </label>
+            <label>Reps
+              <span class="range"><input type="number" id="eng-min" value="8" min="1" max="50" inputmode="numeric" aria-label="Rep range minimum">&ndash;<input type="number" id="eng-max" value="12" min="1" max="50" inputmode="numeric" aria-label="Rep range maximum"></span>
+            </label>
+            <label>Plates
+              <select id="eng-inc" aria-label="Smallest plate increment">
+                <option value="1.25">1.25 kg</option>
+                <option value="2.5" selected>2.5 kg</option>
+                <option value="5">5 kg</option>
+              </select>
+            </label>
+          </span>
         </div>
         <div class="engine-cols mono" aria-hidden="true">
           <span>Set</span><span>Last session</span><span>Felt</span><span>Next session</span>
         </div>
 
-        <div class="set" data-kg="80" data-reps="10" data-felt="good">
+        <div class="set" data-felt="good">
           <span class="n mono">1</span>
-          <span class="last">80<small>kg</small> &times; 10</span>
+          <span class="last">
+            <label><input type="number" class="kg" value="80" min="0" max="999" step="0.5" inputmode="decimal" aria-label="Set 1 weight, kg"><small>kg</small></label>
+            <span class="x">&times;</span>
+            <label><input type="number" class="reps" value="10" min="1" max="50" step="1" inputmode="numeric" aria-label="Set 1 reps"></label>
+          </span>
           <span class="feel" role="group" aria-label="How set 1 felt">
             <button type="button" data-feel="easy" aria-pressed="false">Easy</button>
             <button type="button" data-feel="good" aria-pressed="false">Good</button>
@@ -128,9 +150,13 @@
           <span class="out"><span class="next"></span><span class="why"></span></span>
         </div>
 
-        <div class="set" data-kg="80" data-reps="9" data-felt="good">
+        <div class="set" data-felt="good">
           <span class="n mono">2</span>
-          <span class="last">80<small>kg</small> &times; 9</span>
+          <span class="last">
+            <label><input type="number" class="kg" value="80" min="0" max="999" step="0.5" inputmode="decimal" aria-label="Set 2 weight, kg"><small>kg</small></label>
+            <span class="x">&times;</span>
+            <label><input type="number" class="reps" value="9" min="1" max="50" step="1" inputmode="numeric" aria-label="Set 2 reps"></label>
+          </span>
           <span class="feel" role="group" aria-label="How set 2 felt">
             <button type="button" data-feel="easy" aria-pressed="false">Easy</button>
             <button type="button" data-feel="good" aria-pressed="false">Good</button>
@@ -140,9 +166,13 @@
           <span class="out"><span class="next"></span><span class="why"></span></span>
         </div>
 
-        <div class="set" data-kg="80" data-reps="8" data-felt="hard">
+        <div class="set" data-felt="hard">
           <span class="n mono">3</span>
-          <span class="last">80<small>kg</small> &times; 8</span>
+          <span class="last">
+            <label><input type="number" class="kg" value="80" min="0" max="999" step="0.5" inputmode="decimal" aria-label="Set 3 weight, kg"><small>kg</small></label>
+            <span class="x">&times;</span>
+            <label><input type="number" class="reps" value="8" min="1" max="50" step="1" inputmode="numeric" aria-label="Set 3 reps"></label>
+          </span>
           <span class="feel" role="group" aria-label="How set 3 felt">
             <button type="button" data-feel="easy" aria-pressed="false">Easy</button>
             <button type="button" data-feel="good" aria-pressed="false">Good</button>
@@ -152,14 +182,9 @@
           <span class="out"><span class="next"></span><span class="why"></span></span>
         </div>
 
-        <div class="engine-foot">
-          <span><b>Easy</b> +7.5% weight</span>
-          <span><b>Good</b> +2.5% weight, +1 rep</span>
-          <span><b>Hard</b> hold</span>
-          <span><b>Failed</b> −10% weight, −1 rep</span>
-        </div>
+        <div class="engine-foot" id="eng-legend"></div>
       </div>
-      <p class="engine-note">Standard profile shown, rounded to your plates. Conservative, aggressive and custom profiles change the percentages. Hit the top of the rep range and the weight goes up while reps reset to the bottom. Bodyweight and timed exercises progress in reps and seconds instead.</p>
+      <p class="engine-note">Type your own last session. Weight is rounded to the plate you pick. Hit the top of the rep range and the weight goes up while reps reset to the bottom. Bodyweight and timed exercises progress in reps and seconds instead; this table is the weight-and-reps path.</p>
     </div>
   </div>
 </section>
@@ -416,6 +441,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/main.js?v=3" defer></script>
+<script src="/assets/js/main.js?v=4" defer></script>
 </body>
 </html>
