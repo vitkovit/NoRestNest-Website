@@ -7,8 +7,8 @@
   --card:          #232326;
   --border:        #2A2A2E;
   --text:          #FFFFFF;
-  --text-muted:    #A0A0A5;
-  --text-dim:      #6B6B70;
+  --text-muted:    #BDBDC3;   /* lifted from #A0A0A5 for contrast over the texture */
+  --text-dim:      #8E8E96;   /* lifted from #6B6B70 */
 
   --accent:        #4DA3FF; /* Electric Blue */
   --mint:          #5AC8C8; /* Neon Mint     */
@@ -44,8 +44,8 @@ body {
   background: var(--bg);
   position: relative;
   color: var(--text);
-  line-height: 1.5;
-  font-size: 16px;
+  line-height: 1.6;
+  font-size: 17px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -55,12 +55,12 @@ body {
 body::before {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(14,14,15,.46) 0%, rgba(14,14,15,.58) 100%),
+    linear-gradient(180deg, rgba(14,14,15,.58) 0%, rgba(14,14,15,.70) 100%),
     url(/assets/img/bg-sand.jpg) center / cover no-repeat var(--bg);
 }
 @media (max-width: 760px) {
   body::before { background-image:
-    linear-gradient(180deg, rgba(14,14,15,.52) 0%, rgba(14,14,15,.62) 100%),
+    linear-gradient(180deg, rgba(14,14,15,.64) 0%, rgba(14,14,15,.74) 100%),
     url(/assets/img/bg-sand-m.jpg); }
 }
 img, svg, video { display: block; max-width: 100%; height: auto; }
@@ -77,7 +77,7 @@ h1 { font-size: clamp(46px, 7.6vw, 116px); line-height: 0.94; letter-spacing: -0
 h2 { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.05; letter-spacing: -0.03em; }
 h3 { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.3; letter-spacing: -0.01em; }
 p  { color: var(--text-muted); margin: 0 0 14px; }
-.lead { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.45; max-width: 52ch; }
+.lead { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.5; max-width: 52ch; }
 .lead em { font-style: normal; color: var(--text); }
 .lead strong { color: var(--text); font-weight: 600; }
 code { font-family: var(--font-mono); font-size: .9em; }
@@ -216,8 +216,14 @@ body { padding-top: 56px; }
   min-height: min(92vh, 960px);
   display: flex; align-items: center;
 }
-.hero > .container { width: 100%; }
-.hero .lead { color: #C9C9CE; }
+.hero > .container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+.hero .lead { color: #D2D2D7; }
 .hero-shot { display: flex; justify-content: flex-end; }
 .hero-shot .shot { width: min(100%, 340px); }
 @media (max-width: 960px) {
@@ -353,7 +359,7 @@ body { padding-top: 56px; }
 }
 .spec-row dt { font-weight: 600; color: var(--text); font-size: 17px; letter-spacing: -0.01em; }
 .spec-row dt .tag { display: block; margin-top: 6px; }
-.spec-row dd { margin: 0; color: var(--text-muted); max-width: 66ch; }
+.spec-row dd { margin: 0; color: var(--text-muted); max-width: 66ch; line-height: 1.6; }
 .spec-row dt .tag.mint   { color: var(--mint); }
 .spec-row dt .tag.purple { color: var(--purple); }
 .spec-row dt .tag.orange { color: var(--orange); }
@@ -395,7 +401,7 @@ body { padding-top: 56px; }
    Won't — plain paragraphs, lead-in bold
    ========================================================= */
 .wont { margin: 0; padding: 0; list-style: none; max-width: 64ch; }
-.wont li { padding: 20px 0; border-top: 1px solid var(--rule); font-size: clamp(17px, 1.6vw, 20px); line-height: 1.45; color: var(--text-muted); }
+.wont li { padding: 20px 0; border-top: 1px solid var(--rule); font-size: clamp(17px, 1.6vw, 20px); line-height: 1.55; color: var(--text-muted); }
 .wont li:last-child { border-bottom: 1px solid var(--rule); }
 .wont strong { color: var(--text); font-weight: 600; }
 
