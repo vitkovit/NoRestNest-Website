@@ -252,25 +252,36 @@ body { padding-top: 56px; }
 .hero .lead { margin-bottom: 28px; }
 .hero h1 { text-shadow: 0 2px 12px rgba(0,0,0,.45); }
 
-/* Platform links — two clear targets with platform icons */
+/* Platform cards — per-platform card with numbered step links */
 .get {
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-  max-width: 600px;
+  max-width: 680px; align-items: start;
 }
-.get a {
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px;
-  padding: 14px 16px; text-decoration: none; color: var(--text);
+.get-card {
   background: rgba(26,26,28,.72); border: 1px solid var(--rule-strong); border-radius: var(--radius);
-  transition: border-color .12s ease, background .12s ease;
+  padding: 6px;
 }
-.get a:hover { border-color: var(--accent); background: rgba(35,35,38,.85); }
-.get a:hover .arrow { transform: translateX(3px); color: var(--accent); }
-.get .ico { display: inline-flex; align-items: center; justify-content: center; width: 30px; color: var(--text); }
-.get .ico svg { width: 28px; height: 28px; }
-.get .plat { display: block; font-weight: 600; font-size: 16px; line-height: 1.2; }
-.get .how { display: block; font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.get-head { display: flex; align-items: center; gap: 10px; padding: 10px 12px 8px; }
+.get-head .plat { font-weight: 600; font-size: 16px; }
+.get .ico { display: inline-flex; width: 26px; color: var(--text); }
+.get .ico svg { width: 24px; height: 24px; }
+.get-card a {
+  display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: var(--radius-sm); text-decoration: none; color: var(--text);
+  border: 1px solid transparent;
+}
+.get-card a:hover { background: rgba(35,35,38,.9); border-color: var(--accent); }
+.get-card a:hover .arrow { transform: translateX(3px); color: var(--accent); }
+.get-card a + a { margin-top: 2px; }
+.get .step {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 1px solid var(--rule-strong); color: var(--accent); font-size: 12px;
+}
+.get-card .plat { display: block; font-weight: 600; font-size: 15px; line-height: 1.25; }
+.get-card .how { display: block; font-size: 12.5px; color: var(--text-muted); margin-top: 1px; }
 .get .arrow { font-family: var(--font-mono); color: var(--text-dim); transition: transform .15s ease, color .15s ease; }
-@media (max-width: 520px) { .get { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .get { grid-template-columns: 1fr; } }
 .get-note { font-size: 13px; color: var(--text-dim); margin: 12px 0 0; max-width: 600px; }
 .get-note a { color: var(--text-muted); }
 
