@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-look="glass">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,7 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
-<link rel="stylesheet" href="/assets/css/style.css?v=12" />
+<script>try{var l=localStorage.getItem("nrn-look");if(/^(neon|glass|aurora)$/.test(l))document.documentElement.dataset.look=l}catch(e){}</script>
+<link rel="stylesheet" href="/assets/css/style.css?v=13" />
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-587GVXPDF7"></script>
@@ -28,7 +29,7 @@
 <header class="site-nav is-solid">
   <div class="container">
     <a class="brand" href="/">
-      <img src="/assets/img/icon.png" alt="" />
+      <span class="mark" aria-hidden="true"></span>
       <span>NoRestNest</span>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -78,7 +79,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="/" style="margin-bottom:14px;">
-          <img src="/assets/img/icon.png" alt="" />
+          <span class="mark" aria-hidden="true"></span>
           <span>NoRestNest</span>
         </a>
         <p>Personal fitness, workout, nutrition and progress tracker.</p>

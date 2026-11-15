@@ -536,3 +536,13 @@ body { padding-top: 56px; }
 }
 .legal .contact ul { margin: 0; }
 .legal code { background: rgba(26,26,28,.8); border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px; font-size: 0.9em; }
+
+/* =========================================================
+   Look picker (set on the landing page, stored as "nrn-look").
+   Only the accent follows the look; layout here is unchanged.
+   ========================================================= */
+[data-look="glass"]  { --accent: #FF9A1F; }
+[data-look="neon"]   { --accent: #C8FF3D; }
+[data-look="aurora"] { --accent: #5CF2B8; }
+.brand .mark { flex: none; width: 24px; height: 24px; background-color: var(--accent);
+  -webkit-mask: url(/assets/img/eagle.svg) center/contain no-repeat; mask: url(/assets/img/eagle.svg) center/contain no-repeat; }

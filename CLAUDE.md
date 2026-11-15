@@ -24,7 +24,7 @@ The **public marketing site for the NoRestNest mobile app** (norestnest.com).
 
 - Hosted on **GitHub Pages** (CNAME → `norestnest.com`).
 - Pure **static HTML/CSS/JS — no build step, no node_modules, no framework**. Edit-and-refresh.
-- Mirrors the app's brand (dark UI, `#4DA3FF` electric blue accent).
+- Mirrors the app's Glass look over a dark sand background, with a picker for the app's three looks (Neon, Glass, Aurora).
 - Carries the **legal docs the app stores require** (Privacy, Terms, Refund) as live URLs.
 - This is **not** the Flutter app's web build. The Flutter app lives in a separate repo at `~/Developer/norestnest` (path on the original dev machine). On a fresh laptop you may not have that repo at all — that's fine, this site is self-contained.
 
@@ -36,56 +36,49 @@ The **public marketing site for the NoRestNest mobile app** (norestnest.com).
 NoRestNest-Website/
 ├── CNAME                       # → norestnest.com (GitHub Pages custom domain)
 ├── .nojekyll                   # tells GitHub Pages "no Jekyll preprocessing"
-├── index.html                  # landing page
+├── index.html                  # landing page (site.css + site.js)
 ├── privacy.html                # mirrored from app repo public/privacy-policy.html
 ├── terms.html                  # mirrored from app repo public/terms-of-service.html
 ├── refund.html                 # mirrored from app repo public/refund-policy.html
 ├── support.html                # FAQ + contact + account deletion
-├── 404.html
+├── delete-account.html, 404.html
 ├── assets/
-│   ├── css/style.css           # all styles. tokens at the top.
-│   ├── js/main.js              # mobile nav toggle, hero set-rating example, footer year
+│   ├── css/site.css            # landing page styles, look tokens at the top
+│   ├── css/style.css           # secondary pages; accent follows the stored look
+│   ├── js/site.js              # landing page: look picker, calculator, parallax, year
+│   ├── js/main.js              # secondary pages: nav toggle, download menu, year
 │   ├── img/
-│   │   ├── icon.png            # app icon (used as logo + favicon)
-│   │   ├── og-image.png        # 1200×630 social-share card (TODO)
-│   │   └── screenshots/        # raw, flat Android screenshots (no device frame)
-│   │       ├── 01-home.png
-│   │       ├── 02-workout.png
-│   │       └── …
-│   └── video/
-│       └── demo.mp4            # optional 20-second product video
-├── scripts/
-│   └── crop-android.ps1        # strips Android status/nav bars from screenshots
+│   │   ├── icon.png            # app icon (favicon)
+│   │   ├── eagle.svg           # eagle mark, tinted with the accent via CSS mask
+│   │   ├── bg-sand.jpg, bg-sand-m.jpg   # page background
+│   │   └── scenes/             # generated phone scenes, <scene>_<look>.webp
+│   └── …                       # screenshots/, videos/, demo.gif: old, unused
 ├── CLAUDE.md                   # this file
 ├── README.md                   # human-facing
-└── SCREENSHOTS.md              # how to capture screenshots from any machine
+└── SCREENSHOTS.md              # old flat-screenshot workflow (no longer used by index.html)
 ```
 
 ---
 
 ## Brand tokens (mirrored from the app)
 
-These come straight from `lib/core/theme/app_colors.dart` in the app repo. **Don't drift from them.** If the app changes its theme, mirror the change here.
+The landing page follows the app's Glass look. The page background (sand image + dark veil) and
+text colours stay fixed; only the accent changes with the picked look.
 
 ```
-bg            #0E0E0F
-surface       #1A1A1C
-card          #232326
-border        #2A2A2E
+bg            #0E0E0F   (under the sand image)
 text          #FFFFFF
-text-muted    #A0A0A5
-text-dim      #6B6B70
+muted         #CACACF
+frost         244,244,255  (glass rims and fills, as rgba)
 
-accent        #4DA3FF   Electric Blue   (primary CTA, links)
-mint          #5AC8C8   Neon Mint       (feature accent)
-purple        #A78BFA   Soft Purple     (feature accent)
-orange        #FF8A3D   Orange Ember    (feature accent, warnings)
-premium       #FFC107   Pro / Premium   (badges)
+look     accent    gradient (headline second line)
+glass    #FF9A1F   amber → orange → ember        (default)
+neon     #C8FF3D   pale lime → lime → green
+aurora   #5CF2B8   mint → mint → violet
 ```
 
-Fonts: Inter (body 400/500/600, headlines 700) + JetBrains Mono for labels and numbers. Both from Google Fonts in each HTML head.
-
-Tokens live as CSS variables at the top of `assets/css/style.css`. **Edit them there, not inline.**
+Font: Inter (400–800) from Google Fonts. Tokens live at the top of `assets/css/site.css`
+(`[data-look="…"]` blocks). `style.css` keeps its own tokens and only overrides `--accent` per look.
 
 ---
 
@@ -129,17 +122,16 @@ Verify under the repo's **Settings → Pages**: `norestnest.com` should show "DN
 
 ---
 
-## Screenshot rules (important — user instruction)
+## Scenes (phone images)
 
-- **Screenshots are displayed FLAT — no fake Android device frame**, no phone bezel illustration around them. Modern Linear/Stripe/Vercel style. CSS already enforces this with rounded corners + soft shadow.
-- **Android status bar and navigation bar must be cropped out** of each screenshot. The site renders the screenshot edge-to-edge — visible system chrome breaks the look.
-- Target aspect ratio: **9 / 19.5** (or close — modern phone). Width 1080 is fine.
-- See `SCREENSHOTS.md` for the capture + crop workflow.
-
-After dropping new screenshot PNGs into `assets/img/screenshots/`, wire them up in `index.html`:
-
-- **Screens section** (`#screens`): each `<figure>` holds a `<div class="shot">` with a `<video>` (poster = the still PNG, source = `assets/img/videos/tileN.mp4`). Swap the `poster` / `<source>` paths. A still image works too: `<div class="shot"><img src="…"></div>`.
-- `.shot` crops the iOS status bar (top 120px of a 1206×2622 capture) and home indicator via a fixed aspect ratio + negative top margin — so uncropped captures are fine as long as they're 1206×2622 (or 320×696 video). Different dimensions: adjust `aspect-ratio` and `margin-top` on `.shot` in `style.css`.
+- Every phone image on the landing page is a generated scene: a real device capture in a phone
+  frame, with parts of the screen lifted out in front. Same style as the Play Store screenshots.
+- Made by `py store_assets/android/source/web.py [names]` in the app repo, from captures in
+  `store_assets/android/raw/`. Output: `assets/img/scenes/<scene>_<look>.webp`, transparent,
+  1600 px wide. Capture routine: app repo `claude/deployment/store_screenshots.md`.
+- Scenes: `hero`, `load`, `programs`, `progress`, `nutrition`, `exercises`, each in `glass`,
+  `neon`, `aurora`. In the HTML each scene is a `.stack` of three `<img data-look="…">`; CSS shows
+  the one matching `data-look` on `<html>`.
 
 ---
 
@@ -155,11 +147,19 @@ After dropping new screenshot PNGs into `assets/img/screenshots/`, wire them up 
 
 ## Editing playbook
 
-- **Layout language (redesign of 2026-08-30):** the landing page is a numbered spec sheet, not a card grid. No gradients, glows, blur, hover-lift, or scroll-reveal animation — that was the "obvious AI template" look the owner asked to get rid of. Keep it: hairline rules (`--rule`), left-aligned type, mono labels (`.mono`, JetBrains Mono), tabular numbers.
-- **Adding a feature:** add a `<div class="spec-row"><dt>Name <span class="tag mono">Area</span></dt><dd>…</dd></div>` to the `<dl class="spec">` in `#features`. Tag colors: `mint`, `purple`, `orange`, `gold` on the `.tag` span.
-- **Adding a section:** copy a `<section class="sec" id="…">` block — `.sec-label` (index number + short title, sticky on desktop) on the left, `.sec-body` on the right. Renumber the `.idx` spans.
-- **Progression calculator** (`#engine`, section 01): mirrors the weight+reps path of the app's progression engine (`~/Developer/norestnest/lib/features/programs/domain/services/progressive_overload_service.dart`). Owner's rule: the site must not spell out the rules — no percentages, profile names or rep-range mechanics in copy, legends or reason strings. Results only. If the app's engine changes, re-port.
-- **Buttons:** `.btn` / `.btn-primary` still exist for secondary pages (404). On the landing page the platform links are the `.get` list, not buttons.
+- **Layout language:** Glass. Frosted cards (`.glass`), accent glow on the key card, gradient on the
+  second headline line (`.grad`), numbered eyebrows (`01 · The math`). Sections alternate copy and
+  scene (`.row`, `.row.flip`). Background stays the sand image.
+- **Look picker:** buttons in the hero set `data-look` on `<html>` and store it as `nrn-look` in
+  localStorage. Every page applies the stored look in a tiny `<head>` script before paint. `/#neon`,
+  `/#glass`, `/#aurora` open the landing page on that look.
+- **Adding a feature row:** copy a `<div class="row feature">` in `#features`, toggle `flip` so sides
+  alternate, renumber the eyebrows, and generate its scene with `web.py`.
+- **Progression calculator** (`#engine`, section 01): logic in `site.js`, mirrors the weight+reps path
+  of the app's progression engine (`~/Developer/norestnest/lib/features/programs/domain/services/progressive_overload_service.dart`).
+  Owner's rule: the site must not spell out the rules — no percentages, profile names or rep-range
+  mechanics in copy, legends or reason strings. Results only. If the app's engine changes, re-port.
+- **Feature copy:** only claims the store listing makes (app repo `store_assets/listing_text.txt`).
 - **Updating legal copy:** the canonical source is the app repo's `public/*.html`. If you have access to it, re-extract the body and regenerate. If you don't have access, edit `privacy.html` / `terms.html` / `refund.html` directly and note in the commit message that the app repo also needs updating to match.
 
 ---
@@ -167,7 +167,7 @@ After dropping new screenshot PNGs into `assets/img/screenshots/`, wire them up 
 ## Known TODOs (state at last edit)
 
 - `og-image.png` — 1200×630 social-share card, currently missing (Open Graph link is set up; image file is the only thing missing).
-- Screenshots/videos in `#screens` are iOS captures; the CLAUDE rule says Android — replace when Android captures exist (same 1206×2622 crop assumption, or adjust `.shot`).
+- Secondary pages (support, legal, 404) still use the older `style.css` layout; only their accent and logo follow the look.
 - Legal docs contain `TODO_LEGAL_ENTITY_NAME`, `TODO_REGISTERED_ADDRESS`, `TODO_VAT_NUMBER`, `TODO_POSTAL_ADDRESS`, `TODO_WEBSITE` placeholders — same in the app repo. Sync these when finalized.
 - Store badges (Google Play / App Store) currently show generic SVGs. Swap for the official badges from each store's brand guidelines before launch.
 

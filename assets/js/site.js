@@ -1,0 +1,141 @@
+// NoRestNest landing page: look picker, the progression example table,
+// background parallax, footer year. Vanilla, no build step.
+// The saved look is applied in the <head> before first paint; this file wires
+// the picker buttons. Other pages read the same "nrn-look" key.
+
+(() => {
+
+  // Look picker: Neon, Glass or Aurora. Swaps the scene images and the accent
+  // colours through data-look on <html>. A link like /#neon opens that look.
+  const root = document.documentElement;
+  const LOOKS = ['neon', 'glass', 'aurora'];
+  const buttons = document.querySelectorAll('.looks button');
+  const show = (look) => {
+    root.dataset.look = look;
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.look === look)));
+  };
+  const fromLink = location.hash.slice(1);
+  show(LOOKS.includes(fromLink) ? fromLink : (LOOKS.includes(root.dataset.look) ? root.dataset.look : 'glass'));
+  buttons.forEach(b => b.addEventListener('click', () => {
+    show(b.dataset.look);
+    try { localStorage.setItem('nrn-look', b.dataset.look); } catch (e) { /* storage blocked: look lasts this visit */ }
+  }));
+
+  // ---------------------------------------------------------------------
+  // Progression calculator (standard settings). Each set is compared to the
+  // same set number from the last session. The visitor supplies last
+  // session's numbers; the engine writes the next one.
+  // ---------------------------------------------------------------------
+  const engine = document.getElementById('engine');
+  if (engine) {
+    const K = { easy: 1.075, good: 1.025, hard: 1, failed: 0.9 };
+    const minIn = document.getElementById('eng-min');
+    const maxIn = document.getElementById('eng-max');
+    const incSel = document.getElementById('eng-inc');
+
+    const num = (el, fallback) => { const v = parseFloat(el.value); return Number.isFinite(v) ? v : fallback; };
+    const clamp = (n, lo, hi) => Math.min(Math.max(n, lo), hi);
+    const fmt = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(n * 10 % 1 ? 2 : 1));
+
+    const config = () => {
+      let min = clamp(Math.round(num(minIn, 8)), 1, 50);
+      let max = clamp(Math.round(num(maxIn, 12)), 1, 50);
+      if (max < min) [min, max] = [max, min];
+      return { min, max, inc: num(incSel, 2.5) };
+    };
+
+    const roundToInc = (w, inc) => {
+      if (w <= 0) return 0;
+      const r = Math.round(w / inc) * inc;
+      return r > 0 ? r : inc;
+    };
+
+    const suggest = (last, felt, cfg) => {
+      const { min, max, inc } = cfg;
+      let weight = roundToInc(last.kg * K[felt], inc);
+      if (weight === 0 && last.kg > 0) weight = last.kg;
+
+      let reps;
+      if (felt === 'failed')       reps = clamp(last.reps - 1, 1, max);
+      else if (felt === 'hard')    reps = clamp(last.reps, 1, max);
+      else if (last.reps >= max)   reps = min;
+      else                         reps = clamp(last.reps + 1, min, max);
+
+      const reset = last.reps >= max && reps === min && felt !== 'failed' && felt !== 'hard';
+      if (reset) {
+        if (weight <= last.kg) weight = last.kg + inc;
+        const prevVol = last.kg * last.reps;
+        if (weight * reps < prevVol) reps = Math.min(Math.ceil(prevVol / weight), max);
+      }
+
+      let kind, reason;
+      if (felt === 'failed')          { kind = 'down'; reason = 'Backing off after a failed set.'; }
+      else if (weight > last.kg)      { kind = 'up';   reason = felt === 'easy' ? 'Felt easy. Weight goes up.' : 'Time to add weight.'; }
+      else if (weight < last.kg)      { kind = 'down'; reason = 'Reducing weight to improve form.'; }
+      else if (felt === 'hard')       { kind = 'hold'; reason = 'That was hard. Hold the weight.'; }
+      else                            { kind = 'up';   reason = `Aim for ${reps} reps.`; }
+      return { weight, reps, kind, reason };
+    };
+
+    const rows = Array.from(engine.querySelectorAll('.set')).map(row => ({
+      kg: row.querySelector('.kg'),
+      reps: row.querySelector('.reps'),
+      chips: Array.from(row.querySelectorAll('.feel button')),
+      out: row.querySelector('.next'),
+      why: row.querySelector('.why'),
+      felt: row.dataset.felt || 'good',
+    }));
+
+    const render = () => {
+      const cfg = config();
+      rows.forEach(r => {
+        r.chips.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.feel === r.felt)));
+        const last = { kg: num(r.kg, NaN), reps: Math.round(num(r.reps, NaN)) };
+        if (!(last.kg >= 0) || !(last.reps >= 1)) {
+          r.out.textContent = '—'; r.out.dataset.kind = 'hold';
+          r.why.textContent = 'Enter last session’s weight and reps.';
+          return;
+        }
+        const s = suggest(last, r.felt, cfg);
+        r.out.innerHTML = `${fmt(s.weight)}<small>kg</small> &times; ${s.reps}`;
+        r.out.dataset.kind = s.kind;
+        r.why.textContent = s.reason;
+      });
+    };
+
+    rows.forEach(r => {
+      r.chips.forEach(b => b.addEventListener('click', () => { r.felt = b.dataset.feel; render(); }));
+      [r.kg, r.reps].forEach(el => el.addEventListener('input', render));
+    });
+    [minIn, maxIn, incSel].forEach(el => el.addEventListener('input', render));
+    render();
+  }
+
+  // Per-section "Show details" — reveals the folded copy (.more) in that section
+
+  // Parallax: the texture layer is taller than the viewport; move it so its
+  // full height travels exactly over the page's scroll range (slower than
+  // the content, like something at a distance). Off for reduced motion.
+  const bgImg = document.querySelector('.bg-img');
+  if (bgImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let k = 0;
+    const measure = () => {
+      const vh = window.innerHeight;
+      const range = document.documentElement.scrollHeight - vh;
+      const slack = bgImg.offsetHeight - vh;
+      k = range > 0 && slack > 0 ? Math.min(slack / range, 0.6) : 0;
+      place();
+    };
+    const place = () => {
+      bgImg.style.transform = `translate3d(0, ${-(window.scrollY * k).toFixed(1)}px, 0)`;
+    };
+    window.addEventListener('scroll', place, { passive: true });
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    measure();
+  }
+
+  // Footer year
+  const year = document.getElementById('y');
+  if (year) year.textContent = String(new Date().getFullYear());
+})();
