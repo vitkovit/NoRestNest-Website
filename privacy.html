@@ -56,7 +56,7 @@
     <div class="meta">
         <div><strong>Effective date:</strong> 2026-06-21</div>
         <div><strong>Last updated:</strong> 2026-11-22</div>
-        <div><strong>App version covered:</strong> 1.0.0 (build 161)</div>
+        <div><strong>App version covered:</strong> 2.2.0 (build 307)</div>
     </div>
 
     <p>This policy explains what data NoRestNest (&ldquo;the App&rdquo;, &ldquo;we&rdquo;) collects, why, who we share it with, how long we keep it, and the rights you have under EU/UK GDPR. By using the App you accept this policy. If you don&rsquo;t agree, don&rsquo;t use the App.</p>
@@ -142,11 +142,18 @@
         <li>We do not run automated decision-making with legal effect on you (Art. 22 GDPR).</li>
         <li>We do not profile you for marketing.</li>
     </ul>
+
     <h3>3.9 Apple Watch and Apple Health</h3>
     <p>If you use the NoRestNest Apple Watch app, workouts you start on the watch are saved to Apple Health as strength training workouts, and the app reads the active energy burned during that workout to show it to you. Health data stays in Apple Health on your devices. It is not uploaded to our servers, not shared with third parties, and never used for advertising. You can turn this access off at any time in the Health app or in Settings &gt; Privacy &amp; Security &gt; Health.</p>
     <p>To connect the watch, we store a record of each paired watch in your account (its name and when it last synced) so you can see and disconnect it in Settings &gt; Apple Watch. Disconnecting deletes that record and signs the watch out.</p>
     <p><strong>Legal basis:</strong> Art. 6(1)(b) and, for Apple Health, your consent in the Health permission prompt (Art. 9(2)(a)).</p>
 
+    <h3>3.10 Wear OS watch app</h3>
+    <p>If you use NoRestNest on a Wear OS watch, the watch works as a companion of the phone app. It has no account of its own and does not connect to our servers for your data. The phone sends it, over Google&rsquo;s Wear OS connection between your own devices (Bluetooth or Wi-Fi): today&rsquo;s workout and program days, weight suggestions, your look and accent colour, and whether you have access. Sets you log on the watch go back to the phone, which saves and syncs them like sets logged on the phone.</p>
+    <p>For exercise videos, the phone downloads small watch copies with your login and sends them to the watch, only for today&rsquo;s exercises.</p>
+    <p>On the watch we store sets waiting for the phone to confirm them, today&rsquo;s plan and suggestions, the video copies and a hashed account tag (not your user ID). All of it is deleted when you sign out or switch accounts on the phone. None of it is included in backups or device transfers.</p>
+    <p>Crash reports from the watch go to Firebase Crashlytics as described in section 3.5, without a user ID. The watch app does not read or write any health data.</p>
+    <p><strong>Legal basis:</strong> Art. 6(1)(b) for the watch features; Art. 6(1)(f) for crash reports.</p>
 
     <h2>4. Where your data lives</h2>
     <p><strong>On your device.</strong> Most data is stored locally first. When you&rsquo;re offline the App keeps working from this local copy.</p>
@@ -157,7 +164,7 @@
     <p>The following companies help us run the App. Each receives only what it needs.</p>
 
     <h3>5.1 Google (cloud backend, sign-in, payments, AI)</h3>
-    <p>Google operates our entire cloud backend through Firebase and Google Cloud &mdash; the user account system (Firebase Authentication), the database that holds your synced data (Cloud Firestore), the storage for your photos and videos (Cloud Storage), the serverless functions that run our food-photo recognition, our nutrition-label scanner, our food searches and our AI program builder (Cloud Functions), the static pages that host our deep-link verification files (Firebase Hosting), and the anonymous crash + analytics reporting (Crashlytics, Analytics). The AI features rely on Google Cloud Vision and Google Gemini &mdash; when you trigger Snap meal, Pick photo or Scan label, the image is uploaded for that single request and is not retained for training. Google Sign-In and Google Play Billing handle authentication and Android purchases.</p>
+    <p>Google operates our entire cloud backend through Firebase and Google Cloud &mdash; the user account system (Firebase Authentication), the database that holds your synced data (Cloud Firestore), the storage for your photos and videos (Cloud Storage), the serverless functions that run our food-photo recognition, our nutrition-label scanner, our food searches and our AI program builder (Cloud Functions), the static pages that host our deep-link verification files (Firebase Hosting), and the anonymous crash + analytics reporting (Crashlytics, Analytics). The AI features rely on Google Cloud Vision and Google Gemini &mdash; when you trigger Snap meal, Pick photo or Scan label, the image is uploaded for that single request and is not retained for training. Google Sign-In and Google Play Billing handle authentication and Android purchases. On Wear OS, Google Play services carries the data between your phone and your watch.</p>
     <p>Google privacy: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
 
     <h3>5.2 Apple</h3>
@@ -201,6 +208,7 @@
         <li>We keep the short audit row described in &sect;3.7.</li>
     </ol>
     <p>If you uninstall the App without using Delete Account, your cloud data stays until you sign back in and request deletion.</p>
+    <p><strong>Anonymous (guest) accounts.</strong> If you used the App without signing in, a Firebase anonymous user ID was created on your device. We automatically delete that ID from our authentication system after <strong>60 days of inactivity</strong> (no app open on any device). Because anonymous accounts never sync data to our cloud, this removes the only record we hold for you. Local data on your device is untouched &mdash; only the server-side ID is deleted.</p>
     <p>We retain:</p>
     <ul>
         <li>Anonymous, aggregated analytics events for as long as Firebase Analytics retains them (default 14 months). No UID, no email, no IP.</li>
@@ -241,7 +249,9 @@
         <tr><td>Photo library</td><td>Pick existing meal/progress photos</td><td>Yes</td></tr>
         <tr><td>Internet</td><td>Cloud sync, authentication, in-app purchases</td><td>Required for cloud features</td></tr>
         <tr><td>Apple Health (Apple Watch app)</td><td>Save workouts started on the watch; read active energy for that workout</td><td>Yes &mdash; denying still lets you log on the watch</td></tr>
-        <tr><td>Notifications</td><td>Not used today; if added later we&rsquo;ll request explicit consent</td><td>n/a</td></tr>
+        <tr><td>Physical activity (Wear OS watch)</td><td>Keeps the rest timer running and vibrating while the watch screen is off</td><td>Yes, without it the rest timer can stop when the screen turns off</td></tr>
+        <tr><td>Notifications (Wear OS watch)</td><td>Shows the running workout as an ongoing activity on the watch</td><td>Yes</td></tr>
+        <tr><td>Notifications (phone)</td><td>Not used today; if added later we&rsquo;ll request explicit consent</td><td>n/a</td></tr>
     </table>
     <p>We never request location, microphone, contacts, calendar or background camera access.</p>
 
