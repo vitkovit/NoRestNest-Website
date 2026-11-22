@@ -122,8 +122,7 @@
     <h3>3.5 Crash and diagnostic reports</h3>
     <ul>
         <li>Anonymous crash reports (stack traces, device model, OS version, App version, anonymous installation ID).</li>
-        <li>Anonymous usage events (screen views, key feature taps, standard SDK events like <code>first_open</code>).</li>
-        <li>You can turn both off at the OS level (Android: Settings &rarr; Google &rarr; Ads; iOS: Settings &rarr; Privacy &rarr; Tracking) &mdash; we&rsquo;ll respect it.</li>
+        <li>The App collects no usage or analytics events.</li>
     </ul>
     <p><strong>Legal basis:</strong> Art. 6(1)(f) &mdash; improving stability and quality.</p>
 
@@ -164,7 +163,7 @@
     <p>The following companies help us run the App. Each receives only what it needs.</p>
 
     <h3>5.1 Google (cloud backend, sign-in, payments, AI)</h3>
-    <p>Google operates our entire cloud backend through Firebase and Google Cloud &mdash; the user account system (Firebase Authentication), the database that holds your synced data (Cloud Firestore), the storage for your photos and videos (Cloud Storage), the serverless functions that run our food-photo recognition, our nutrition-label scanner, our food searches and our AI program builder (Cloud Functions), the static pages that host our deep-link verification files (Firebase Hosting), and the anonymous crash + analytics reporting (Crashlytics, Analytics). The AI features rely on Google Cloud Vision and Google Gemini &mdash; when you trigger Snap meal, Pick photo or Scan label, the image is uploaded for that single request and is not retained for training. Google Sign-In and Google Play Billing handle authentication and Android purchases. On Wear OS, Google Play services carries the data between your phone and your watch.</p>
+    <p>Google operates our entire cloud backend through Firebase and Google Cloud &mdash; the user account system (Firebase Authentication), the database that holds your synced data (Cloud Firestore), the storage for your photos and videos (Cloud Storage), the serverless functions that run our food-photo recognition, our nutrition-label scanner, our food searches and our AI program builder (Cloud Functions), the static pages that host our deep-link verification files (Firebase Hosting), and the anonymous crash reporting (Crashlytics). The AI features rely on Google Cloud Vision and Google Gemini &mdash; when you trigger Snap meal, Pick photo or Scan label, the image is uploaded for that single request and is not retained for training. Google Sign-In and Google Play Billing handle authentication and Android purchases. On Wear OS, Google Play services carries the data between your phone and your watch.</p>
     <p>Google privacy: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
 
     <h3>5.2 Apple</h3>
@@ -190,7 +189,7 @@
     <p>When you scan a product barcode, the barcode value (no identity) is sent to <a href="https://world.openfoodfacts.org/">Open Food Facts</a> to look up the product.</p>
 
     <h3>5.8 No other SDKs</h3>
-    <p>There are no advertising SDKs, no attribution or install-tracking SDKs, no social-network SDKs and no analytics other than Firebase Crashlytics and Firebase Analytics.</p>
+    <p>There are no advertising SDKs, no attribution or install-tracking SDKs, no social-network SDKs and no analytics SDKs. Firebase Crashlytics, for crash reports only, is the only diagnostics SDK.</p>
 
     <h2>6. International transfers</h2>
     <p>If you&rsquo;re in the EU/EEA, your cloud data is processed by Google in the United States. Google self-certifies under the <strong>EU&ndash;US Data Privacy Framework</strong>, which is an EU adequacy decision under Art. 45 GDPR. Where the Framework does not apply, EU Standard Contractual Clauses (Art. 46 GDPR) apply via Google&rsquo;s Data Processing Addendum. The same Standard Contractual Clauses apply to RevenueCat and Anthropic (both US-based).</p>
@@ -211,7 +210,7 @@
     <p><strong>Anonymous (guest) accounts.</strong> If you used the App without signing in, a Firebase anonymous user ID was created on your device. We automatically delete that ID from our authentication system after <strong>60 days of inactivity</strong> (no app open on any device). Because anonymous accounts never sync data to our cloud, this removes the only record we hold for you. Local data on your device is untouched &mdash; only the server-side ID is deleted.</p>
     <p>We retain:</p>
     <ul>
-        <li>Anonymous, aggregated analytics events for as long as Firebase Analytics retains them (default 14 months). No UID, no email, no IP.</li>
+        <li>Anonymous crash reports for as long as Firebase Crashlytics retains them (90 days). No UID, no email.</li>
         <li>Tax/accounting records related to subscription purchases &mdash; kept as long as required by EU and national accounting law (typically 7&ndash;10 years). No workout, photo or nutrition data.</li>
     </ul>
 
@@ -221,7 +220,7 @@
         <li><strong>Access</strong> the data we hold about you (Art. 15).</li>
         <li><strong>Correct</strong> inaccurate data (Art. 16).</li>
         <li><strong>Delete</strong> your account and data (Art. 17 &mdash; see &sect;7).</li>
-        <li><strong>Restrict</strong> or <strong>object to</strong> processing based on legitimate interest, such as analytics and crash reports (Art. 18 / 21).</li>
+        <li><strong>Restrict</strong> or <strong>object to</strong> processing based on legitimate interest, such as crash reports (Art. 18 / 21).</li>
         <li><strong>Receive a copy</strong> of your data in a structured, machine-readable format (Art. 20).</li>
         <li><strong>Withdraw consent</strong> at any time, where processing is based on consent. Withdrawal does not affect prior processing.</li>
         <li><strong>Complain</strong> to your local data-protection supervisory authority. EU contact list: <a href="https://edpb.europa.eu/about-edpb/about-edpb/who-we-are/board-members_en">edpb.europa.eu/board-members</a>.</li>
