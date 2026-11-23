@@ -84,8 +84,7 @@ h3 { font-weight: 700; letter-spacing: -.01em; }
 .nav { position: relative; z-index: 10; max-width: var(--max-w); margin: 0 auto; padding: 20px var(--gutter);
   display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 18px; }
-.mark { flex: none; width: 34px; height: 34px; background-color: var(--accent);
-  -webkit-mask: url(/assets/img/eagle.svg) center/contain no-repeat; mask: url(/assets/img/eagle.svg) center/contain no-repeat; }
+.mark { flex: none; width: 34px; height: 34px; background: url(/assets/img/logo.png) center/contain no-repeat; }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; color: var(--muted); }
 .nav-links a:hover { color: var(--accent); }
 .pill { padding: 10px 18px; border-radius: 999px; color: var(--text) !important;

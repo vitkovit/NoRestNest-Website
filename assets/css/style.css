@@ -544,5 +544,4 @@ body { padding-top: 56px; }
 [data-look="glass"]  { --accent: #FF9A1F; }
 [data-look="neon"]   { --accent: #C8FF3D; }
 [data-look="aurora"] { --accent: #5CF2B8; }
-.brand .mark { flex: none; width: 24px; height: 24px; background-color: var(--accent);
-  -webkit-mask: url(/assets/img/eagle.svg) center/contain no-repeat; mask: url(/assets/img/eagle.svg) center/contain no-repeat; }
+.brand .mark { flex: none; width: 24px; height: 24px; background: url(/assets/img/logo.png) center/contain no-repeat; }

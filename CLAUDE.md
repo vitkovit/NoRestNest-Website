@@ -48,8 +48,9 @@ NoRestNest-Website/
 │   ├── js/site.js              # landing page: look picker, calculator, parallax, year
 │   ├── js/main.js              # secondary pages: nav toggle, download menu, year
 │   ├── img/
-│   │   ├── icon.png            # app icon (favicon)
-│   │   ├── eagle.svg           # eagle mark, tinted with the accent via CSS mask
+│   │   ├── icon.png            # app icon (favicon, home-screen icon), edge-to-edge eagle head
+│   │   ├── logo.png            # header mark: the eagle logo card, in its own colours
+│   │   ├── og-image.png        # 1200x630 link preview: logo, name, tagline, eagle on a barbell
 │   │   ├── bg-sand.jpg, bg-sand-m.jpg   # page background
 │   │   └── scenes/             # generated phone scenes, <scene>_<look>.webp
 │   └── …                       # screenshots/, videos/, demo.gif: old, unused
@@ -166,7 +167,6 @@ Verify under the repo's **Settings → Pages**: `norestnest.com` should show "DN
 
 ## Known TODOs (state at last edit)
 
-- `og-image.png` — 1200×630 social-share card, currently missing (Open Graph link is set up; image file is the only thing missing).
 - Secondary pages (support, legal, 404) still use the older `style.css` layout; only their accent and logo follow the look.
 - Legal docs contain `TODO_LEGAL_ENTITY_NAME`, `TODO_REGISTERED_ADDRESS`, `TODO_VAT_NUMBER`, `TODO_POSTAL_ADDRESS`, `TODO_WEBSITE` placeholders — same in the app repo. Sync these when finalized.
 - Store badges (Google Play / App Store) currently show generic SVGs. Swap for the official badges from each store's brand guidelines before launch.
